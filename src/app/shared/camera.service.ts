@@ -9,7 +9,7 @@ export class CameraService {
   }
 
   public getCameras() {
-    this.http.get('../../assets/camera_all.json').then(camera => console.log(camera));
+    return this.http.get('../../assets/camera_all.json');
   }
 
 }

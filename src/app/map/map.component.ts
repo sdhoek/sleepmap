@@ -11,6 +11,7 @@ import { CameraService } from '../shared/camera.service';
 export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
+  private cameraLayer: L.GeoJSON;
   private city: string;
   private cityLocations = CityLocations;
 
@@ -19,7 +20,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.cameraService.getCameras();
+    this.cameraService.getCameras().then(cameras => {
+      this.drawCameras(cameras);
+    });
   }
 
   ngAfterViewInit() {
@@ -33,12 +36,30 @@ export class MapComponent implements OnInit, AfterViewInit {
       zoomControl: false
     });
 
-    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
       maxZoom: 24,
       zIndeX: 0
     });
 
+    this.cameraLayer = L.geoJson().addTo(this.map);
     this.kaart.addTo(this.map);
+  }
+
+  private drawCameras(cameras) {
+    const geojsonMarkerOptions = {
+      radius: 8,
+      fillColor: "red",
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
+    L.geoJson(cameras, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+      }
+    }).addTo(this.cameraLayer);
+    console.log(cameras);
   }
 
 
