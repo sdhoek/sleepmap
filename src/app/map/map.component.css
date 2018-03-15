@@ -22,3 +22,26 @@ img.camera{
   font-size: 25px;
   left: 78px;
 }
+
+.side-menu{
+  position: absolute;
+  z-index: 401;
+  color: #fff;
+  top: 97px;
+  left: -200px;
+  background: #101010de;
+  padding: 0 15px;
+}
+
+.active .side-menu{
+  left: 15px;
+}
+
+.side-menu h3{
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.side-menu h3:hover{
+  color: #ddd;
+}
