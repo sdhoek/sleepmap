@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
+import { CityLocations } from './city-locations.data';
 
 @Component({
   selector: 'app-map',
@@ -11,9 +12,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
   private city: string;
+
+  private cityLocations = CityLocations;
   constructor(private route: ActivatedRoute) {
     this.city = this.route.snapshot.params.city;
-    console.log(this.city)
+    console.log(this.cityLocations);
   }
 
   ngOnInit() {
@@ -21,8 +24,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === this.city).location;
+
     this.map = new L.Map('map', {
-      center: [52.0907013, 5.1258586],
+      center: [mapCenter.lat, mapCenter.lon],
       maxZoom: 24,
       zoom: 15,
       attributionControl: false,
