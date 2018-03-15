@@ -31,10 +31,12 @@ img.camera{
   left: -200px;
   background: #101010de;
   padding: 0 15px;
+  transition: left 0.5s;
 }
 
 .active .side-menu{
   left: 15px;
+  transition: left 0.5s;
 }
 
 .side-menu h3{
