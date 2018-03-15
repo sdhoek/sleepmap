@@ -7,7 +7,7 @@ naar: <input [(ngModel)]="destination">
 <button (click)="findRoute()" type="button" name="button">zoek</button>
 
 <div class="map" id="map">
-    <div class="sidebar" [ngClass]="{'active': active === true}" (click)="active = !active"> <img class="camera" src="../assets/camera@2x.png" title="Onbegluurd.nl" />
+    <div class="sidebar" [ngClass]="{'active': active === true}" (click)="active = !active"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">
             <h3 routerLink="../..">Home</h3>
             <h3 routerLink="../kaart/utrecht">Utrecht</h3>
@@ -18,7 +18,6 @@ naar: <input [(ngModel)]="destination">
         </div>
     </div>
 </div>
-
 
 <app-popup>
 </app-popup>
