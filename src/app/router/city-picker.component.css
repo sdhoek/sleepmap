@@ -30,10 +30,12 @@ img.camera{
   }
 
 h1{
-    font-weight: bold;
     color: #fff;
     position: relative;
     padding-bottom: 13px;
+    font-size: 50px;
+    font-weight: normal;
+    margin-bottom: 22px;
 }
 
 h1:after {
@@ -58,7 +60,6 @@ h1:after {
 }
 
 h2{
-    font-weight: bold;
     color: #fff;
 }
 
