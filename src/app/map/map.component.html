@@ -2,9 +2,13 @@
 <app-header>
 </app-header>
 
+van: <input [(ngModel)]="origin">
+naar: <input [(ngModel)]="destination">
+ <button (click)="findRoute()" type="button" name="button">zoek</button>
 <div class="map" id="map">
 
 </div>
+
 
 <app-popup>
 </app-popup>
