@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -18,18 +18,19 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.map = new L.Map('map', {
-      center: [52.80330625557036, 6.022953987121583],
+      center: [52.0907013, 5.1258586],
       maxZoom: 24,
-      zoom: 17,
+      zoom: 15,
       attributionControl: false,
       zoomControl: false
     });
-    const kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+
+    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       maxZoom: 24,
       zIndeX: 0
     });
 
-    kaart.addTo(this.map);
+    this.kaart.addTo(this.map);
   }
 
 

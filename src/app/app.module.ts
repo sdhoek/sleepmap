@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { PopupComponent } from './popup/popup.component';
 import { SharedModule } from './shared/shared.module';
-
+import { AppRouterModule} from './router/router.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,8 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
