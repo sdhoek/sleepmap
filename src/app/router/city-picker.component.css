@@ -91,3 +91,9 @@ h2{
     display: block;
     margin: 0 auto 15px;
 }
+
+.colofon{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
