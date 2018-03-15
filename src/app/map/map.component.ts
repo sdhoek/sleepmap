@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -9,8 +10,11 @@ import * as L from 'leaflet';
 export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
-
-  constructor() { }
+  private city: string;
+  constructor(private route: ActivatedRoute) {
+    this.city = this.route.snapshot.params.city;
+    console.log(this.city)
+  }
 
   ngOnInit() {
 
