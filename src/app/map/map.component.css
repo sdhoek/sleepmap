@@ -4,7 +4,7 @@
 }
 
 img.camera{
-  width: 60px;
+  width: 75px;
   z-index: 401;
   position: relative;
   margin: 15px;
@@ -21,4 +21,29 @@ img.camera{
   top: 23px;
   font-size: 25px;
   left: 78px;
+}
+
+.side-menu{
+  position: absolute;
+  z-index: 401;
+  color: #fff;
+  top: 97px;
+  left: -200px;
+  background: #101010de;
+  padding: 0 15px;
+  transition: left 0.5s;
+}
+
+.active .side-menu{
+  left: 15px;
+  transition: left 0.5s;
+}
+
+.side-menu h3{
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.side-menu h3:hover{
+  color: #ddd;
 }

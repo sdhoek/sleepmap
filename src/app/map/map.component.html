@@ -4,11 +4,20 @@
 
 van: <input [(ngModel)]="origin">
 naar: <input [(ngModel)]="destination">
- <button (click)="findRoute()" type="button" name="button">zoek</button>
-<div class="map" id="map">
-    <div class="logo-title"> <img class="camera" routerLink="../.." src="../assets/camera-s@2x.png" title="Onbegluurd.nl" /> </div>
-</div>
+<button (click)="findRoute()" type="button" name="button">zoek</button>
 
+<div class="map" id="map">
+    <div class="sidebar" [ngClass]="{'active': active === true}" (click)="active = !active"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
+        <div class="side-menu">
+            <h3 routerLink="../..">Home</h3>
+            <h3 routerLink="../kaart/utrecht">Utrecht</h3>
+            <h3 routerLink="../kaart/amsterdam">Amsterdam</h3>
+            <h3 routerLink="../kaart/rotterdam">Rotterdam</h3>
+            <h3 routerLink="../kaart/den-haag">Den Haag</h3>
+            <h3>Over deze kaart</h3>
+        </div>
+    </div>
+</div>
 
 <app-popup>
 </app-popup>
