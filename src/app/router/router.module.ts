@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { AppComponent } from '../app.component';
+import { MapComponent } from '../map/map.component';
 import { CityPickerComponent } from './city-picker.component';
 
 const routes: Routes = [
@@ -15,7 +15,15 @@ const routes: Routes = [
   component: CityPickerComponent
   },{
   path: 'kaart',
-  component: AppComponent
+  component: MapComponent
+  },
+  {
+  path: 'kaart/:city',
+  component: MapComponent
+  },
+  {
+  path: '*',
+  redirectTo: 'kiezen'
 }];
 
 @NgModule({
