@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
 import { CityLocations } from './city-locations.data';
-
+import { CameraService } from '../shared/camera.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -13,13 +13,13 @@ export class MapComponent implements OnInit, AfterViewInit {
   private kaart: L.TileLayer;
   private city: string;
   private cityLocations = CityLocations;
-  
-  constructor(private route: ActivatedRoute) {
+
+  constructor(private route: ActivatedRoute, private cameraService: CameraService) {
     this.city = this.route.snapshot.params.city;
   }
 
   ngOnInit() {
-
+    this.cameraService.getCameras();
   }
 
   ngAfterViewInit() {

@@ -14,6 +14,9 @@ import { CameraService } from './camera.service';
   exports: [
     HeaderComponent
   ],
-  providers: []
+  providers: [
+    AppHttpService,
+    CameraService
+  ]
 })
 export class SharedModule { }
