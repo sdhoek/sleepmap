@@ -12,11 +12,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
   private city: string;
-
   private cityLocations = CityLocations;
+  
   constructor(private route: ActivatedRoute) {
     this.city = this.route.snapshot.params.city;
-    console.log(this.cityLocations);
   }
 
   ngOnInit() {
