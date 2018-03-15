@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppHttpService } from './app-http.service';
 import { CameraService } from './camera.service';
-
+import { RoutingService } from './routing.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +16,8 @@ import { CameraService } from './camera.service';
   ],
   providers: [
     AppHttpService,
-    CameraService
+    CameraService,
+    RoutingService
   ]
 })
 export class SharedModule { }

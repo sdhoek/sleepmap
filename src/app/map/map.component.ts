@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
 import { CityLocations } from './city-locations.data';
 import { CameraService } from '../shared/camera.service';
+import { RoutingService } from '../shared/routing.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -12,10 +14,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
   private cameraLayer: L.GeoJSON;
+  private routeLayer: L.GeoJSON;
   private city: string;
   private cityLocations = CityLocations;
 
-  constructor(private route: ActivatedRoute, private cameraService: CameraService) {
+  public origin: string = 'Kromme Nieuwegracht 3, Utrecht';
+  public destination: string = 'Oudwijkerlaan 28, Utrecht';
+
+  constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
   }
 
@@ -42,6 +48,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     this.cameraLayer = L.geoJson().addTo(this.map);
+    this.routeLayer = L.geoJson().addTo(this.map);
     this.kaart.addTo(this.map);
   }
 
@@ -59,7 +66,27 @@ export class MapComponent implements OnInit, AfterViewInit {
         return L.circleMarker(latlng, geojsonMarkerOptions);
       }
     }).addTo(this.cameraLayer);
-    console.log(cameras);
+  }
+
+  private drawRoute(routeGeometry) {
+    this.routeLayer.clearLayers();
+    L.geoJson(routeGeometry).addTo(this.routeLayer);
+    this.map.fitBounds(this.routeLayer.getBounds());
+  }
+
+  public findRoute() {
+    this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
+      this.drawRoute(directions.geometry);
+    });
+
+  }
+
+  public setOrigin() {
+
+  }
+
+  public setDestination() {
+
   }
 
 
