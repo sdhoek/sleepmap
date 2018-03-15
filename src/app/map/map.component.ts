@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import * as turf from '@turf/turf';
 import { ActivatedRoute } from '@angular/router';
 import { CityLocations } from './city-locations.data';
 import { CameraService } from '../shared/camera.service';
@@ -13,8 +14,11 @@ import { RoutingService } from '../shared/routing.service';
 export class MapComponent implements OnInit, AfterViewInit {
   private map: L.Map;
   private kaart: L.TileLayer;
+
   private cameraLayer: L.GeoJSON;
   private routeLayer: L.GeoJSON;
+  private viewShedLayer: L.GeoJSON;
+
   private city: string;
   private cityLocations = CityLocations;
 
@@ -28,6 +32,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.cameraService.getCameras().then(cameras => {
       this.drawCameras(cameras);
+    });
+
+    this.cameraService.getCameraViewsheds().then(viewsheds => {
+      this.drawViewsheds(viewsheds);
     });
   }
 
@@ -49,7 +57,21 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     this.cameraLayer = L.geoJson().addTo(this.map);
     this.routeLayer = L.geoJson().addTo(this.map);
+    this.viewShedLayer = L.geoJson().addTo(this.map);
+
     this.kaart.addTo(this.map);
+  }
+
+  private drawViewsheds(viewsheds) {
+    const geojsonMarkerOptions = {
+      radius: 8,
+      fillColor: "red",
+      color: "red",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.4
+    };
+    L.geoJson(viewsheds, geojsonMarkerOptions).addTo(this.viewShedLayer);
   }
 
   private drawCameras(cameras) {
@@ -77,8 +99,36 @@ export class MapComponent implements OnInit, AfterViewInit {
   public findRoute() {
     this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
       this.drawRoute(directions.geometry);
+      const intersection = this.intersectRouteWithViewshed(this.routeLayer.toGeoJSON(), this.viewShedLayer.toGeoJSON());
+      this.drawIntersection(intersection);
+    });
+  }
+
+  private intersectRouteWithViewshed(route, viewsheds) {
+    let intersections = viewsheds.features.map(viewShed => {
+      let inter = turf.intersect(turf.buffer(route.features[0].geometry, 0.5, {units: 'meters'}), viewShed.geometry);
+      return inter
     });
 
+    intersections = intersections.filter(intersection => intersection != null)
+    return intersections;
+  }
+
+  private drawIntersection(intersectingLines) {
+      L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.map);
+  }
+
+  private buildIntersectGeometry(intersectingPoints) {
+    const features = intersectingPoints.features;
+    const lines = [];
+    for (let i = 0; i < features.length; i +=2 ) {
+      lines.push({
+        type: 'LineString',
+        coordinates: [features[i].geometry.coordinates, features[i + 1].geometry.coordinates]
+      });
+    }
+    const fc = {type: 'FeatureCollection', features: lines};
+    return fc;
   }
 
   public setOrigin() {

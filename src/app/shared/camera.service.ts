@@ -12,4 +12,9 @@ export class CameraService {
     return this.http.get('../../assets/camera_all.json');
   }
 
+  public getCameraViewsheds() {
+    return this.http.get('../../assets/viewsheds_25meter_v3.json');
+  }
+
+
 }
