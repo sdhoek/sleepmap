@@ -70,12 +70,12 @@ h2{
     cursor: pointer;
     border-radius: 125px;
     margin: 17px;
-    border: 2px solid #0a0a0a;
+    background: #1b1b1b;
+    border: 2px solid #f6be0e;
 }
 
 .stad:hover{
-    background: #1b1b1b;
-    border: 2px solid #f6be0e;
+    background: #272727;
 }
 
 .stad img{
