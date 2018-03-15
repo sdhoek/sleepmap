@@ -1,0 +1,22 @@
+h2 {
+    background: #f6be0e;
+    margin: 0;
+    padding: 13px 15px 5px;
+    font-size: 17px;
+    position: relative;
+    border-bottom: 4px solid #191a11;
+}
+
+h2:last-of-type{
+    border: none;
+}
+
+.icon{
+    width: 50px;
+}
+
+.notice{
+    left: 83px;
+    position: absolute;
+    top: 25px;
+}
