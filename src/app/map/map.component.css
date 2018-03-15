@@ -1,4 +1,24 @@
 #map {
-  height: 800px;
-  width: 1000px;
+ flex: 1;
+}
+
+img.camera{
+  width: 60px;
+  z-index: 401;
+  position: relative;
+  margin: 15px;
+}
+
+.logo-title{
+  z-index: 401;
+  position: relative;
+}
+
+.logo-title span{
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  top: 23px;
+  font-size: 22px;
+  left: 78px;
 }

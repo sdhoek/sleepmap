@@ -26,3 +26,14 @@ app-city-picker{
     flex: 1;
     display: flex;
 }
+
+app-map{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+app-popup{
+    flex: 1;
+    max-height: 300px;
+}
