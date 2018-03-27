@@ -18,15 +18,19 @@ export class MapComponent implements OnInit, AfterViewInit {
   private cameraLayer: L.GeoJSON;
   private routeLayer: L.GeoJSON;
   private viewShedLayer: L.GeoJSON;
+  private cityOutlineLayer: L.GeoJSON;
 
   private city: string;
   private cityLocations = CityLocations;
+  private cityOutlines: any;
 
   public origin: string = 'Kromme Nieuwegracht 3, Utrecht';
   public destination: string = 'Oudwijkerlaan 28, Utrecht';
 
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
+    this.cityOutlines = this.cameraService.getCityOutlines();
+    console.log(this.cityOutlines);
   }
 
   ngOnInit() {
@@ -63,6 +67,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.cameraLayer = L.geoJson().addTo(this.map);
     this.routeLayer = L.geoJson().addTo(this.map);
     this.viewShedLayer = L.geoJson().addTo(this.map);
+    this.cityOutlineLayer = L.geoJson().addTo(this.map);
+
+    this.drawCityOutline(this.city);
 
     this.kaart.addTo(this.map);
     // Remove grey bar to the right.
@@ -83,7 +90,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     L.geoJson(viewsheds, geojsonMarkerOptions).addTo(this.viewShedLayer);
   }
 
-  public recenterMap(cityName) {
+  public recenterMap(cityName: string) {
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === cityName).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === cityName).mapBounds;
 
@@ -92,13 +99,36 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     this.map.flyTo([mapCenter.lat, mapCenter.lon], 15, {
         animate: true,
-        duration: animationDuration 
+        duration: animationDuration
     })
 
     setTimeout(()=> {
-      this.map.setMaxBounds(maxBounds)
+      this.map.setMaxBounds(maxBounds);
+      this.drawCityOutline(cityName);
     }, animationDuration * 1000);
+  }
 
+  private drawCityOutline(cityName: string) {
+    const invertPolygon = {
+      type: 'Polygon',
+      coordinates: [
+        [[90, -180],
+         [90, 180],
+         [-90, 180],
+         [-90, -180]]
+      ]
+    }
+    const cityOutline = this.cityOutlines.features.find(city => city.properties.naam === cityName);
+
+    invertPolygon.coordinates.push(cityOutline.geometry.coordinates[0]);
+    this.cityOutlineLayer.clearLayers();
+    this.cityOutlineLayer.addLayer(L.geoJson(invertPolygon, {
+      style: {
+        color: '#f6be0e',
+        fillOpacity: 0.4,
+        fillColor: '#f6be0e'
+      }
+    }));
   }
 
   private drawCameras(cameras) {
