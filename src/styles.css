@@ -84,10 +84,10 @@ app-map{
 
 app-popup{
     position: absolute;
-    top: 116px;
+    top: 96px;
     z-index: 401;
     background: #101010e8;
-    right: 40px;
+    right: 20px;
     width: 400px;
     max-height: 80%;
     max-width: 80%;
