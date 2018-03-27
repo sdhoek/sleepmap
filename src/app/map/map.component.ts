@@ -109,12 +109,24 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   private drawCityOutline(cityName: string) {
+    const invertPolygon = {
+      type: 'Polygon',
+      coordinates: [
+        [[90, -180],
+         [90, 180],
+         [-90, 180],
+         [-90, -180]]
+      ]
+    }
     const cityOutline = this.cityOutlines.features.find(city => city.properties.naam === cityName);
+
+    invertPolygon.coordinates.push(cityOutline.geometry.coordinates[0]);
     this.cityOutlineLayer.clearLayers();
-    this.cityOutlineLayer.addLayer(L.geoJson(cityOutline, {
+    this.cityOutlineLayer.addLayer(L.geoJson(invertPolygon, {
       style: {
         color: '#f6be0e',
-        fillOpacity: 0,
+        fillOpacity: 0.4,
+        fillColor: '#f6be0e'
       }
     }));
   }
