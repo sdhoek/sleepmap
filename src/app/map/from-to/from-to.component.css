@@ -1,0 +1,9 @@
+.from-to-container {
+    left: 160px;
+    position: absolute;
+    top: 25px;
+    height: 250px;
+    width: 300px;
+    background: #f6be0e;
+    z-index: 500;
+}

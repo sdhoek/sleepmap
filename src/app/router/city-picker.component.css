@@ -5,7 +5,7 @@
 }
 
 img.camera{
-    margin-top: 110px;
+    margin-top: 90px;
     width: 150px;
     max-width: 100%;
     animation: bounce 0.5s infinite alternate;
@@ -95,7 +95,7 @@ h2 {
 }
 
 .colofon{
-    bottom: 0;
-    position: absolute;
+    margin-top: 20px;
+    position: relative;
     width: 100%;
 }
