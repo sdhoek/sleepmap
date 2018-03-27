@@ -5,7 +5,7 @@
     <input [(ngModel)]="van" (keyup)="vanUp($event)" placeholder="Kies een startpunt" >
     <div id="vansuggests">
       <ul>
-        <li *ngFor="let vanSuggest of vanSuggests">
+        <li *ngFor="let vanSuggest of vanSuggests" (click)="locateVan(vanSuggest)">
           {{vanSuggest.weergavenaam}}
         </li>
       </ul>
@@ -18,7 +18,7 @@
 <input [(ngModel)]="naar"  (keyup)="naarUp($event)" placeholder="Kies een bestemming">
 <div id="naarsuggests">
   <ul>
-    <li *ngFor="let naarSuggest of naarSuggests">
+    <li *ngFor="let naarSuggest of naarSuggests" (click)="locateNaar(naarSuggest)">
       {{naarSuggest.weergavenaam}}
     </li>
   </ul>
