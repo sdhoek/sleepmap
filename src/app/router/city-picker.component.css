@@ -5,7 +5,7 @@
 }
 
 img.camera{
-    margin-top: 90px;
+    margin-top: 60px;
     width: 150px;
     max-width: 100%;
     animation: bounce 0.5s infinite alternate;
@@ -36,6 +36,7 @@ h1{
     font-size: 50px;
     font-weight: normal;
     margin-bottom: 22px;
+    margin-top: 15px;
 }
 
 h1:after {
