@@ -16,7 +16,7 @@ import { FromToComponent } from './map/from-to/from-to.component';
     AppComponent,
     MapComponent,
     PopupComponent,
-    ColofonComponent
+    ColofonComponent,
     FromToComponent
   ],
   imports: [
