@@ -8,11 +8,13 @@ import { PopupComponent } from './map/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRouterModule} from './router/router.module';
+import { GraphComponent } from './map/graph/graph.component';
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    PopupComponent
+    PopupComponent,
+    GraphComponent
   ],
   imports: [
     FormsModule,
