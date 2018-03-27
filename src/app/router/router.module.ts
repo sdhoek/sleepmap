@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MapComponent } from '../map/map.component';
 import { CityPickerComponent } from './city-picker.component';
+import { ColofonComponent } from '../colofon/colofon.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   pathMatch: 'full',
   redirectTo: 'kiezen'
   },{
+  path: 'colofon',
+  component: ColofonComponent
+  }
+  ,{
   path: 'kiezen',
   component: CityPickerComponent
   },{
