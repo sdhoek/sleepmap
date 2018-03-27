@@ -49,8 +49,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       attributionControl: false,
       zoomControl: false
     });
-
-    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png', {
       maxZoom: 24,
       zIndeX: 0
     });
@@ -60,6 +59,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.viewShedLayer = L.geoJson().addTo(this.map);
 
     this.kaart.addTo(this.map);
+    // Remove grey bar to the right.
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 400);
   }
 
   private drawViewsheds(viewsheds) {
