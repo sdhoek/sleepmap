@@ -55,8 +55,8 @@ export class FromToComponent implements OnInit {
     const locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id='
     this.http.get(locateUrl+item.id).then(r=>{
       let pt = r.response.docs[0].centroide_ll;
-      this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
-     
+      this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
+      this.naarSuggests = [];
     })
   }
 
@@ -64,7 +64,8 @@ export class FromToComponent implements OnInit {
     const locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id='
     this.http.get(locateUrl+item.id).then(r=>{
       let pt = r.response.docs[0].centroide_ll;
-      this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
+      this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
+      this.vanSuggests = [];
     })
 
   }
