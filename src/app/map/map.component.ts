@@ -30,17 +30,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
     this.cityOutlines = this.cameraService.getCityOutlines();
-    console.log(this.cityOutlines);
   }
 
   ngOnInit() {
-    this.cameraService.getCameras().then(cameras => {
-      this.drawCameras(cameras);
-    });
 
-    this.cameraService.getCameraViewsheds().then(viewsheds => {
-      this.drawViewsheds(viewsheds);
-    });
   }
 
   ngAfterViewInit() {
@@ -76,6 +69,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.map.invalidateSize();
     }, 400);
+
+    const cameras = this.cameraService.getCameras();
+    this.drawCameras(cameras);
+
+    const viewsheds = this.cameraService.getCameraViewsheds();
+    this.drawViewsheds(viewsheds);
   }
 
   private drawViewsheds(viewsheds) {
