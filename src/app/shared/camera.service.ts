@@ -10,7 +10,7 @@ const anyViewShedData = viewShedData as any;
 
 @Injectable()
 export class CameraService {
-  public cities = anyCityData;
+  public cityOutlines = anyCityData;
   public cameras = anyCameraData;
   public viewsheds = anyViewShedData;
 
@@ -27,8 +27,8 @@ export class CameraService {
     return this.http.get('../../assets/viewsheds_25meter_v3.json');
   }
 
-  public getCities() {
-    return this.cities;
+  public getCityOutlines() {
+    return this.cityOutlines;
   }
 
 
