@@ -30,17 +30,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
     this.cityOutlines = this.cameraService.getCityOutlines();
-    console.log(this.cityOutlines);
   }
 
   ngOnInit() {
-    this.cameraService.getCameras().then(cameras => {
-      this.drawCameras(cameras);
-    });
 
-    this.cameraService.getCameraViewsheds().then(viewsheds => {
-      this.drawViewsheds(viewsheds);
-    });
   }
 
   ngAfterViewInit() {
@@ -76,6 +69,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.map.invalidateSize();
     }, 400);
+
+    const cameras = this.cameraService.getCameras();
+    this.drawCameras(cameras);
+
+    const viewsheds = this.cameraService.getCameraViewsheds();
+    this.drawViewsheds(viewsheds);
   }
 
   private drawViewsheds(viewsheds) {
@@ -91,7 +90,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public recenterMap(cityName: string) {
-    this.drawCityOutline(cityName);
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === cityName).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === cityName).mapBounds;
 
@@ -104,17 +102,30 @@ export class MapComponent implements OnInit, AfterViewInit {
     })
 
     setTimeout(()=> {
-      this.map.setMaxBounds(maxBounds)
+      this.map.setMaxBounds(maxBounds);
+      this.drawCityOutline(cityName);
     }, animationDuration * 1000);
   }
 
   private drawCityOutline(cityName: string) {
+    const invertPolygon = {
+      type: 'Polygon',
+      coordinates: [
+        [[90, -180],
+         [90, 180],
+         [-90, 180],
+         [-90, -180]]
+      ]
+    }
     const cityOutline = this.cityOutlines.features.find(city => city.properties.naam === cityName);
+
+    invertPolygon.coordinates.push(cityOutline.geometry.coordinates[0]);
     this.cityOutlineLayer.clearLayers();
-    this.cityOutlineLayer.addLayer(L.geoJson(cityOutline, {
+    this.cityOutlineLayer.addLayer(L.geoJson(invertPolygon, {
       style: {
         color: '#f6be0e',
-        fillOpacity: 0,
+        fillOpacity: 0.4,
+        fillColor: '#f6be0e'
       }
     }));
   }

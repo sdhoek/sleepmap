@@ -93,6 +93,11 @@ app-popup{
     max-width: 80%;
 }
 
+app-colofon{
+    display: flex;
+    flex: 1;
+}
+
 /* webcam */
 
 video{
@@ -134,4 +139,10 @@ app-graph .tooltip {
     border-radius: 8px;			
     pointer-events: none;
     z-index: 500;
+
+    
+/* leaflet */
+
+.leaflet-container {
+    background: #000;
 }

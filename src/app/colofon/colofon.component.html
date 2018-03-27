@@ -1,26 +1,40 @@
 <div class="container">
+  <div class="sidebar">
+    <img routerLink="../" class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
+  </div>
   <div class="intro">
-    <img class="camera" src="../assets/camera@2x.png" />
     <h1>Colofon</h1>
-    <h2>Waarom</h2>
+    <p>Camera's in de openbare ruimte spelen enerzijds een rol in het gevoel van veiligheid, maar anderzijds in het gevoel van
+      privacy.</p>
     <h2>Data</h2>
     <h3>Camera-locaties</h3>
+    <p>De locaties van de camera's hebben we uit verschillende open data bronnen betrokken:</p>
     <ul>
-      <li>Amsterdam</li>
-      <li>Den Haag</li>
-      <li>Rotterdam</li>
-      <li>Utrecht</li>
+      <li>
+        <a href="https://maps.amsterdam.nl/open_geodata/?k=182">Gemeente Amsterdam</a>
+      </li>
+      <li>
+        <a href="https://www.utrecht.nl/bestuur-en-organisatie/privacy/cameras/">Gemeente Utrecht</a>
+      </li>
     </ul>
-    <p>Deze sets zijn aangevuld met camera's uit de BGT/IMGeo dataset.</p>
+    <p>Deze informatie is aangevuld met camera's uit de
+      <a href="https://www.kadaster.nl/bgt">Basisregistratie Grootschalige Topografie (BGT/IMGeo)</a>. Ten slotte hebben we de camera's van de verdwenen website
+      CameraLocaties.nl gebruikt.</p>
+    <p>Het is opvallend, dat de locaties van camera's in de openbare ruimte niet zijn opgenomen in de
+      <a href="https://data.overheid.nl/gemeentelijke-high-value-datalijst">Gemeentelijke High Value Datalijst</a>.</p>
     <h3>Camera-zichtveld</h3>
-    <p>Aanname: afstand standaard op 25 meter en 360&deg; zicht. Camera's die bovenop een gebouw zijn geplaats zijn naar de dakrand verplaatst om vanaf die positie het zichtveld te berekenen.</p>
+    <p>De aanname is, dat het beeld tot op een afstand van 25 meter herkenbaar is en dat alle camera's 360&deg; zicht hebben.
+      Camera's die bovenop een gebouw zijn geplaats zijn naar de dakrand verplaatst om vanaf die nieuwe positie het zichtveld
+      te berekenen. Het zichtveld is vervolgens bepaald op basis van de gebouwen uit de
+      <a href="https://www.kadaster.nl/bag"> Basisadministratie Adressen en Gebouwen</a> (BAG).</p>
     <h2>Technologie</h2>
     <ul>
       <li>Angular 2</li>
       <li>Leaflet</li>
       <li>FME</li>
-      <li>Postgres, PostGIS, pgRouting</li>
-      <li>OSMR</li>
+      <li>Postgres</li>
+      <li>PostGIS</li>
+      <li>pgRouting</li>
     </ul>
     <h2>Over ons</h2>
     <p>De website is gemaakt door
