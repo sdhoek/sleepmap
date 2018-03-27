@@ -21,6 +21,7 @@ export class RoutingService {
     }
     return this.http.get(this.googleProxy + querystring.stringify(params)).then(directions => {
       directions.geometry = this.createRouteLinestring(directions);
+      console.log(directions);
       return directions;
     });
   }
@@ -34,8 +35,8 @@ export class RoutingService {
       leg.steps.forEach(step => {
         const start = [step.start_location.lng, step.start_location.lat];
         const end = [step.end_location.lng, step.end_location.lat];
-        geometry.coordinates.push(start)
-        geometry.coordinates.push(end)
+        geometry.coordinates.push(start);
+        geometry.coordinates.push(end);
       })
     })
 

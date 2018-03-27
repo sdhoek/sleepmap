@@ -9,19 +9,29 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRouterModule} from './router/router.module';
 import { GraphComponent } from './map/graph/graph.component';
+
+import { ColofonComponent } from './colofon/colofon.component';
+
+import { FromToComponent } from './map/from-to/from-to.component';
+
+import { WebcamModule } from 'ngx-webcam';
+
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     PopupComponent,
-    GraphComponent
+    GraphComponent,
+    ColofonComponent,
+    FromToComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     SharedModule,
     BrowserAnimationsModule,
-    AppRouterModule
+    AppRouterModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
