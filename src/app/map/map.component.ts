@@ -150,19 +150,32 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private drawNoCameraRouteLayer(routeGeometry) {
     this.noCameraRouteLayer.clearLayers();
-    L.geoJson(routeGeometry).addTo(this.noCameraRouteLayer);
+    L.geoJson(routeGeometry, {
+      style: {
+        color: 'green'
+      }
+    }).addTo(this.noCameraRouteLayer);
     this.map.fitBounds(this.noCameraRouteLayer.getBounds());
   }
 
   private drawCameraRoute(routeGeometry) {
     this.cameraRouteLayer.clearLayers();
-    L.geoJson(routeGeometry).addTo(this.cameraRouteLayer);
+    L.geoJson(routeGeometry, {
+      style: {
+        color: 'red'
+      }
+    }).addTo(this.cameraRouteLayer);
     this.map.fitBounds(this.cameraRouteLayer.getBounds());
   }
 
   public findRoute() {
-    this.routingService.getCameraRoute(null, null).then(route => this.drawCameraRoute(route));
-    this.routingService.getNonCameraRoute(null, null).then(route => this.drawNoCameraRouteLayer(route));
+    this.routingService.getCameraRoute(null, null).then(response => {
+      this.drawCameraRoute(response.route.geojson);
+    });
+    this.routingService.getNonCameraRoute(null, null).then(response => {
+      console.log('no camera response', response);
+      this.drawNoCameraRouteLayer(response.route.geojson);
+    });
 
     // this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
     //   this.drawRoute(directions.geometry);
