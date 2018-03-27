@@ -4,8 +4,8 @@
     width: 380px;
     background: #f6be0e;
     z-index: 500;
-    right: 40px;
-    top: 40px;
+    right: 20px;
+    top: 20px;
     display:flex;
     flex-direction: row;
     padding: 7px 10px 13px;
@@ -17,25 +17,23 @@ label {
     top: -3px;
 }
 
-.from-container input{
+#from-container input{
     width: 141px;
 }
 
 input {
-    line-height: 26px;
     width: 145px;
     background: #f3ca44;
     border: solid 2px black;
-    padding: 2px 5px;
+    padding: 6px 5px;
 }
 
 button {
     background: #cfa109;
     border: solid 2px black;
     cursor: pointer;
-    line-height: 26px;
     margin-top: 21px;
-    padding: 1px 9px 2px;
+    padding: 5px 9px 6px;
 }
 
 button:hover {
@@ -45,3 +43,54 @@ button:hover {
 button:active {
     background: #f3ca44;
 }
+
+#vansuggests{
+    position: absolute;
+    background: #ffe79a;
+    left: 0px;
+    top: 76px;
+    width: 400px;
+}
+
+#vansuggests ul{
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#vansuggests li{
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #f6be0e;
+}
+
+#vansuggests li:hover{
+    background: #fff;
+}
+
+#naarsuggests{
+    position: absolute;
+    background: #ffe79a;
+    left: 0px;
+    top: 76px;
+    width: 400px;
+}
+
+#naarsuggests ul{
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#naarsuggests li{
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #f6be0e;
+}
+
+#naarsuggests li:hover{
+    background: #fff;
+}
+
