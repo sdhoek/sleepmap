@@ -1,7 +1,7 @@
 <div class="from-to-container">
   <div id="from-container">
     <label>van</label>
-    <input [(ngModel)]="van" placeholder="Kies een startpunt">
+    <input [(ngModel)]="van" (keyup)="onKeyUp($event)" placeholder="Kies een startpunt">
   </div>
   <div id="to-container">
 <label>naar</label>
