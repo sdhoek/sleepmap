@@ -30,7 +30,6 @@ img.camera{
   }
 
 h1{
-    color: #fff;
     position: relative;
     padding-bottom: 13px;
     font-size: 50px;
@@ -50,6 +49,8 @@ h1:after {
     transform:translateX(-50%);  
   }
 
+h1, h2, h3 {color: #fff;}
+
 .intro p {
     color: #fff;
     max-width: 600px;
@@ -57,4 +58,8 @@ h1:after {
     padding: 0 40px;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+ul {
+  color: #ffffff;
 }
