@@ -34,14 +34,22 @@ export class GraphComponent implements OnInit {
 		  { "distance": 14, "camera": 0 }
 	  ]
 	//   GENERAL ROUTE INFO
-	  function sum(obj) {
+	  function sum_dist(obj,) {
 		  var sum = 0;
 		  for (let i = 0; i < data.length; i++) {
 			  sum += data[i].distance;
 		  }
 		  return sum;
-	  }
-	  var route_length = sum(data)
+		};
+		function sum_cam(obj, ) {
+			var sum = 0;
+			for (let i = 0; i < data.length; i++) {
+				sum += data[i].camera;
+			}
+			return sum;
+		};
+		var route_length = sum_dist(data);
+		var sum_camera = sum_cam(data);
 	
 	//   CRUNCH DATA
 	//   Make data usable as line segments:
@@ -180,6 +188,23 @@ export class GraphComponent implements OnInit {
 			.style("fill", "#f6be0e")
 			.style("font-size", "12px");
 
+		var lengte_route = svg.selectAll("text")
+			.data([route_line])
+			.enter()
+			.append("text")
+			.attr("class", "p")
+			.attr("x", function (d) {
+				return x(d.x) - (size / 2)
+			})
+			.attr("y", -10)           // set offset y position
+			.attr("transform", "translate(0," + height / 2 + ")")
+			.attr("text-anchor", "end") // set 
+			.text(function (d) {
+				return d.text 
+			})
+			.style("fill", "#f6be0e")
+			.style("font-size", "12px");
+
 	//   CIRCLES
 	  var circle = svg.selectAll("g")
 		  .data(new_data2)
@@ -191,8 +216,8 @@ export class GraphComponent implements OnInit {
 				  .style("fill", "#690303");
 				div.style("opacity", 0.9)
 					.style("left", (d3.event.pageX + "px"))
-					.style("top", (d3.event.pageY) + "px").html(d.x + "m");
-
+					.style("top", (d3.event.pageY)-100 + "px")
+					.html("<b>Afstand in zicht:</b> " + d.x + "m </br> <b>Aantal cameras:</b> " + d.camera + "</br> <b> Totaal aantal cameras: </b>" + sum_camera);
 		  })
 		  .on("mouseout", function (d) {
 			  d3.select(this).select(".circle-fill")
@@ -220,14 +245,22 @@ export class GraphComponent implements OnInit {
 		  .style("stroke-width", 2)
 		  .style("fill", "rgba(0,0,0,0)");
 	  circle
-		  .append("text")
+		  .append("svg:image")
 		  .filter(function (d) { return d.camera > 0 })
-		  .attr("x", function (d) { return x(d.x - (d.dist / 2)) })
-		  .attr("y", ".35em")           // set offset y position
-		  .attr("text-anchor", "middle") // set anchor y justification
-		  .text(function (d) { return d.camera })
-		  .style("font-size", size)
-		  .attr("transform", "translate(0," + height / 2 + ")");
+		  .attr("x", function (d) { return x(d.x - (d.dist / 2)) - ((d.camera*15)/2) })
+			.attr("y", function (d) { return -((d.camera * 15) / 2) })       // set offset y position
+			.attr("transform", "translate(0," + (height / 2)  + ")")
+		  // .attr("text-anchor", "middle") // set anchor y justification
+		  // .text(function (d) { return d.camera })
+		  // .style("font-size", size)
+			.attr("xlink:href", "../assets/camera-icon@2x.png")
+			.attr("width", function (d) {
+				return (d.camera * 15) 
+			})
+			.attr("height",  function(d) {
+				return (d.camera * 15) 
+			})
+			.attr("z-index", 500);
 
 
 
