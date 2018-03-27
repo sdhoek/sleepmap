@@ -124,3 +124,9 @@ webcam{
     font-weight: bold;
     z-index: 402;
 }
+
+/* leaflet */
+
+.leaflet-container {
+    background: #000;
+}
