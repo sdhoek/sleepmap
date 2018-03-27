@@ -13,16 +13,22 @@ export class CameraService {
   public cities = anyCityData;
   public cameras = anyCameraData;
   public viewsheds = anyViewShedData;
+
   constructor(private http: AppHttpService) {
 
   }
 
   public getCameras() {
+
     return this.http.get('../../assets/camera_all.json');
   }
 
   public getCameraViewsheds() {
     return this.http.get('../../assets/viewsheds_25meter_v3.json');
+  }
+
+  public getCities() {
+    return this.cities;
   }
 
 
