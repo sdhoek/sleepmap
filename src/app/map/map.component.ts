@@ -46,14 +46,16 @@ export class MapComponent implements OnInit, AfterViewInit {
       maxZoom: 24,
       minZoom: 14,
       zoom: 16,
-      attributionControl: false,
       zoomControl: false,
       maxBoundsViscosity: 0.5
     });
 
     this.map.setMaxBounds(maxBounds);
 
+    this.map.attributionControl.setPrefix('').setPosition('bottomleft');
+
     this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png', {
+      attribution: 'Referentiekaart: <a href="https://www.openstreetmap.org">OpenStreetMap</a>.',
       maxZoom: 24,
       zIndeX: 0
     });
