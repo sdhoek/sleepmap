@@ -1,7 +1,15 @@
 <div class="from-to-container">
   <div id="from-container">
     <label>van</label>
-    <input [(ngModel)]="van" (keyup)="onKeyUp($event)" placeholder="Kies een startpunt">
+    <input [(ngModel)]="van" (click)="onKeyUp($event)" placeholder="Kies een startpunt" #vanInput >
+    <div id="vansuggests">
+      <ul>
+        <li *ngFor="let vanSuggest of vanSuggests">
+          {{vanSuggest}}
+        </li>
+      </ul>
+    </div>
+
   </div>
   <div id="to-container">
 <label>naar</label>

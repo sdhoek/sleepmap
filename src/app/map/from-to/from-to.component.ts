@@ -10,8 +10,8 @@ import "rxjs/add/operator/debounceTime";
 export class FromToComponent implements OnInit {
   //Observable.fromEvent(yourInput, 'keyup').debounceTime(1000).subscribe(value => /* */)
   private vanSubject = new Subject();
-  constructor() { }
 
+  constructor() { }
   ngOnInit() {
     this.vanSubject.debounceTime(500).subscribe((event: Event) => {
       // Initialize search here.
@@ -23,5 +23,4 @@ export class FromToComponent implements OnInit {
   public onKeyUp(event: Event) {
     this.vanSubject.next(event);
   }
-
 }
