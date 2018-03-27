@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AppHttpService } from './app-http.service';
 
 import * as cityData from '../../assets/city_outlinesv4.json';
-import * as cameraData from '../../assets/camera_all.json';
-import * as viewShedData from '../../assets/viewsheds_25meter_v3.json';
+import * as cameraData from '../../assets/camera_all_v2.json';
+import * as viewShedData from '../../assets/viewsheds_25meter_display.json';
 const anyCityData = cityData as any;
 const anyCameraData = cameraData as any;
 const anyViewShedData = viewShedData as any;
