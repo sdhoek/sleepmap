@@ -8,6 +8,7 @@ import { PopupComponent } from './map/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRouterModule} from './router/router.module';
+import { GraphComponent } from './map/graph/graph.component';
 
 import { ColofonComponent } from './colofon/colofon.component';
 
@@ -20,6 +21,7 @@ import { WebcamModule } from 'ngx-webcam';
     AppComponent,
     MapComponent,
     PopupComponent,
+    GraphComponent,
     ColofonComponent,
     FromToComponent
   ],
