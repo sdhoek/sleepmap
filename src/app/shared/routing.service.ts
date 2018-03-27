@@ -21,7 +21,6 @@ export class RoutingService {
     }
     return this.http.get(this.googleProxy + querystring.stringify(params)).then(directions => {
       directions.geometry = this.createRouteLinestring(directions);
-      console.log(directions);
       return directions;
     });
   }
