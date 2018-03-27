@@ -65,6 +65,10 @@ h1, h2, h3 {color: #fff;}
     margin-bottom: 0;
 }
 
+p {
+  text-align: left;
+}
+
 ul {
   color: #ffffff;
   list-style-type: none;
