@@ -18,6 +18,12 @@ body{
     display: flex;
 }
 
+/* disable blue Chrome focus */
+
+*:focus {
+    outline:0;
+}
+
 /* scrollbar */
 
 body {
@@ -70,4 +76,30 @@ app-popup{
     width: 400px;
     max-height: 80%;
     max-width: 80%;
+}
+
+/* webcam */
+
+video{
+    width: 201px;
+    height: 60px;
+}
+
+webcam{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 141px;
+    height: 60px;
+    overflow: hidden;    
+    z-index: 402;
+}
+
+.cameraSwitch{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background: #f6be0e;
+    border: none;
+    font-weight: bold;
 }
