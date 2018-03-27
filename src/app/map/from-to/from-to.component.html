@@ -1,11 +1,11 @@
 <div class="from-to-container">
   <div id="from-container">
     <label>van</label>
-    <input [(ngModel)]="van" (click)="onKeyUp($event)" placeholder="Kies een startpunt" #vanInput >
+    <input [(ngModel)]="van" (keyup)="vanUp($event)" placeholder="Kies een startpunt" >
     <div id="vansuggests">
       <ul>
         <li *ngFor="let vanSuggest of vanSuggests">
-          {{vanSuggest}}
+          {{vanSuggest.weergavenaam}}
         </li>
       </ul>
     </div>
@@ -14,7 +14,14 @@
   <div id="to-container">
 <label>naar</label>
 
-<input [(ngModel)]="naar" placeholder="Kies een bestemming">
+<input [(ngModel)]="naar"  (keyup)="naarUp($event)" placeholder="Kies een bestemming">
+<div id="naarsuggests">
+  <ul>
+    <li *ngFor="let naarSuggest of naarSuggests">
+      {{naarSuggest.weergavenaam}}
+    </li>
+  </ul>
+</div>
   </div>
   <div id="from-to-search">
     <button (click)="findRoute()" type="button" name="button">zoek</button>
