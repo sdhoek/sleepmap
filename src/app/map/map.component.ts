@@ -41,14 +41,19 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === this.city).location;
+    const mapBounds = this.cityLocations.find(cityLoc => cityLoc.name === this.city).mapBounds;
 
     this.map = new L.Map('map', {
       center: [mapCenter.lat, mapCenter.lon],
       maxZoom: 24,
-      zoom: 15,
+      minZoom: 14,
+      zoom: 16,
       attributionControl: false,
-      zoomControl: false
+      zoomControl: false,
+      maxBoundsViscosity: 0.5
     });
+
+    this.map.setMaxBounds(mapBounds);
 
     this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
       maxZoom: 24,
@@ -72,6 +77,24 @@ export class MapComponent implements OnInit, AfterViewInit {
       fillOpacity: 0.4
     };
     L.geoJson(viewsheds, geojsonMarkerOptions).addTo(this.viewShedLayer);
+  }
+
+  public recenterMap(cityName) {
+    const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === cityName).location;
+    const mapBounds = this.cityLocations.find(cityLoc => cityLoc.name === cityName).mapBounds;
+
+    this.map.setMaxBounds(null);
+    const animationDuration = 3; // duration of animation in seconds
+
+    this.map.flyTo([mapCenter.lat, mapCenter.lon], 15, {
+        animate: true,
+        duration: animationDuration 
+    })
+
+    setTimeout(()=> {
+      this.map.setMaxBounds(mapBounds)
+    }, animationDuration * 1000);
+
   }
 
   private drawCameras(cameras) {
