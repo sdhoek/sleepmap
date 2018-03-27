@@ -8,15 +8,19 @@ import { PopupComponent } from './map/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRouterModule} from './router/router.module';
+
 import { ColofonComponent } from './colofon/colofon.component';
+
 import { FromToComponent } from './map/from-to/from-to.component';
+
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     PopupComponent,
-    ColofonComponent
+    ColofonComponent,
     FromToComponent
   ],
   imports: [
@@ -24,7 +28,8 @@ import { FromToComponent } from './map/from-to/from-to.component';
     BrowserModule,
     SharedModule,
     BrowserAnimationsModule,
-    AppRouterModule
+    AppRouterModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
