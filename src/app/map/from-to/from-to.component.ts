@@ -18,11 +18,11 @@ export class FromToComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.vanSubject.debounceTime(500).subscribe((event: Event) => {
+    this.vanSubject.debounceTime(500).subscribe((event: any) => {
       // Initialize search here.
      this.getVanSuggest(event.target.value)
     });
-    this.naarSubject.debounceTime(500).subscribe((event: Event) => {
+    this.naarSubject.debounceTime(500).subscribe((event: any) => {
       // Initialize search here.
      this.getNaarSuggest(event.target.value)
     });
