@@ -50,6 +50,7 @@ button:active {
     left: 0px;
     top: 76px;
     width: 400px;
+    min-height: 317px;
 }
 
 #vansuggests ul{
@@ -75,6 +76,7 @@ button:active {
     left: 0px;
     top: 76px;
     width: 400px;
+    min-height: 317px;
 }
 
 #naarsuggests ul{
