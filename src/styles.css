@@ -93,6 +93,11 @@ app-popup{
     max-width: 80%;
 }
 
+app-colofon{
+    display: flex;
+    flex: 1;
+}
+
 /* webcam */
 
 video{
@@ -118,4 +123,10 @@ webcam{
     border: none;
     font-weight: bold;
     z-index: 402;
+}
+
+/* leaflet */
+
+.leaflet-container {
+    background: #000;
 }

@@ -20,7 +20,7 @@ export class FromToComponent implements OnInit {
   
   }
   ngAfterViewInit(){
-    Observable.fromEvent(this.el, 'keyup').debounceTime(1000).subscribe(value => {
+    Observable.  .fromEvent(this.el, 'keyup').debounceTime(1000).subscribe(value => {
       console.log(this)
     }) 
   }
