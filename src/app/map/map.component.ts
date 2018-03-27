@@ -91,7 +91,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public recenterMap(cityName: string) {
-    this.drawCityOutline(cityName);
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === cityName).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === cityName).mapBounds;
 
@@ -104,7 +103,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     })
 
     setTimeout(()=> {
-      this.map.setMaxBounds(maxBounds)
+      this.map.setMaxBounds(maxBounds);
+      this.drawCityOutline(cityName);
     }, animationDuration * 1000);
   }
 
