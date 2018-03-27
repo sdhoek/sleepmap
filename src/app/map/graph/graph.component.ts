@@ -466,22 +466,21 @@ export class GraphComponent implements OnInit {
 	// GET GRAPH ELEMENT FROM DOM
 	  var element = d3.select('app-graph').node();
 	// SET SVG DIMENSIONS
-	  var margin = { top: 20, right: 20, bottom: 20, left: 20 },
+	  var margin = { top: 3, right: 10, bottom: 3, left: 10 },
 		  width = element.getBoundingClientRect().width - margin.left - margin.right,
 		  height = element.getBoundingClientRect().height - margin.top - margin.bottom;
 	  var size = 5;
-
+	  console.log(element.getBoundingClientRect())
 	// DRAW SVG
 	  var svg = d3.select("#graph")
 		  .append("svg")
-		  .attr("height", height + margin.top + margin.bottom)
-		  .attr("width", width + margin.left + margin.right)
-		  .append("g")
+		  .attr("height", height )
+		  .attr("width", width )
 		  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	// SCALES
 	  var x = d3.scaleLinear()
-		  .range([0, width])
+		  .range([10, width-20])
 		  .domain([0, route_length]);
 	  var y = d3.scaleLinear()
 		  .range([height, 0])
@@ -492,10 +491,6 @@ export class GraphComponent implements OnInit {
 		  .y(function (d) { return y(d.y); });
 
 	  // GRAPH GROUP
-	  var g = svg.selectAll("g")
-		  .enter()
-		  .append("g");
-
 	  // ROUTE
 	  	var route = svg.selectAll("route")
 		  .data([route_line])
@@ -523,22 +518,53 @@ export class GraphComponent implements OnInit {
 			.style("stroke", "#f6be0e")
 			.style("stroke-width", size / 2);
 
-		var start_end_text = svg.selectAll(".p")
-			.data(route_line)
+		// var start_end_text = svg.selectAll(".p")
+		// 	.data(route_line)
+		// 	.enter()
+		// 	.append("text")
+		// 	.attr("class", "p")
+		// 	.attr("x", function (d) {
+		// 		return x(d.x)
+		// 	})
+		// 	.attr("y", -10)           // set offset y position
+		// 	.attr("transform", "translate(0," + height / 2 + ")")
+		// 	.attr("text-anchor", "middle") // set 
+		// 	.text(function (d) {
+		// 		return d.text
+		// 	})
+		// 	.style("fill", "#f6be0e");
+
+		var lengte_route = svg.selectAll("text")
+			.data([route_line[1]])
 			.enter()
 			.append("text")
 			.attr("class", "p")
-			.attr("x", function (d) {
-				return x(d.x)
+			.attr("x", function(d){
+				return x(d.x)-(size/2)
 			})
 			.attr("y", -10)           // set offset y position
 			.attr("transform", "translate(0," + height / 2 + ")")
-			.attr("text-anchor", "middle") // set 
+			.attr("text-anchor", "end") // set 
 			.text(function (d) {
-				return d.text
+				return d.x + "m"
 			})
-			.style("fill", "#f6be0e");
-
+			.style("fill", "#f6be0e")
+			.style("font-size", "12px");
+		// var start_end_text = svg.selectAll(".p")
+		// 	.data(route_line)
+		// 	.enter()
+		// 	.append("text")
+		// 	.attr("class", "p")
+		// 	.attr("x", function (d) {
+		// 		return x(d.x)
+		// 	})
+		// 	.attr("y", -10)           // set offset y position
+		// 	.attr("transform", "translate(0," + height / 2 + ")")
+		// 	.attr("text-anchor", "middle") // set 
+		// 	.text(function (d) {
+		// 		return d.text
+		// 	})
+		// 	.style("fill", "#f6be0e");
 	//   CIRCLES
 	  var circle = svg.selectAll("g")
 		  .data(new_data2)
@@ -547,7 +573,13 @@ export class GraphComponent implements OnInit {
 		  .filter(function (d) { return d.camera == "yes" })
 		  .on("mouseover", function () {
 			  d3.select(this).select(".circle-fill")
-				  .style("fill", "#690303")
+				  .style("fill", "#690303");
+				div.transition()
+					.duration(200)
+					.style("opacity", 0.9);
+				div.html(d.text)
+				.style("left", (d3.event.pageX + "px"))
+				.style("top", (d3.event.pageY)+ "px")
 		  })
 		  .on("mouseout", function () {
 			  d3.select(this).select(".circle-fill")
@@ -582,4 +614,14 @@ export class GraphComponent implements OnInit {
 		  .text(function (d) { return d.y })
 		  .style("font-size", size)
 		  .attr("transform", "translate(0," + height / 2 + ")");
-	}
+
+
+
+
+	  var div = d3.select("body").append("div")
+		  .attr("class", "tooltip")
+		  .style("opacity", 0);
+		  
+	
+		}
+}
