@@ -14,8 +14,10 @@ export class FromToComponent implements OnInit {
   public vanSuggests = [];
   private naarSubject = new Subject();
   public naarSuggests = [];
+  public vanLoc = [];
+  public naarLoc = [];
   constructor(private http: AppHttpService) {
-
+  
   }
   ngOnInit() {
     this.vanSubject.debounceTime(500).subscribe((event: any) => {
@@ -36,16 +38,34 @@ export class FromToComponent implements OnInit {
   }
 
   public getVanSuggest(van) {
-    const suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?'
-    this.http.get(suggestUrl+'q='+van).then(r=>{
+    const suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?q='
+    this.http.get(suggestUrl+van).then(r=>{
       this.vanSuggests = r.response.docs;
     })
   }
 
   public getNaarSuggest(naar) {
-    const suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?'
-    this.http.get(suggestUrl+'q='+naar).then(r=>{
+    const suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?q='
+    this.http.get(suggestUrl+naar).then(r=>{
       this.naarSuggests = r.response.docs;
     })
+  }
+
+  public locateNaar(item) {
+    const locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id='
+    this.http.get(locateUrl+item.id).then(r=>{
+      let pt = r.response.docs[0].centroide_ll;
+      this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
+     
+    })
+  }
+
+  public locateVan(item) {
+    const locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id='
+    this.http.get(locateUrl+item.id).then(r=>{
+      let pt = r.response.docs[0].centroide_ll;
+      this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
+    })
+
   }
 }
