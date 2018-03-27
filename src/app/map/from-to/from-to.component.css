@@ -16,9 +16,22 @@ label {
     font-size: small;
 }
 input {
-    font-size: 110%;
-    width: 176px;
+    line-height: 175%;
+    width: 150px;
     background: #f3ca44;
     border: solid 2px black;
     padding: 2px;
+}
+button {
+    background: #cfa109;
+    border: solid 2px black;
+    cursor: pointer;
+    line-height: 175%;
+    margin-top: 20px;
+}
+button:hover {
+    background: #f6be0e;
+}
+button:active {
+    background: #f3ca44;
 }
