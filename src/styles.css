@@ -119,3 +119,19 @@ webcam{
     font-weight: bold;
     z-index: 402;
 }
+
+/* GRAPH */
+
+app-graph .tooltip {	
+    position: fixed;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: #f6be0e;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;
+    z-index: 500;
+}

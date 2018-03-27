@@ -463,6 +463,12 @@ export class GraphComponent implements OnInit {
 		  { "x": 0, "y": 0, "text": "start" },
 		  { "x": route_length, "y": 0, "text": "end" }
 	  ];
+
+	// TOOLTIP DIV 
+	  var div = d3.select("#graph").append("div")
+		  .attr("class", "tooltip")
+		  .style("opacity", 0);
+
 	// GET GRAPH ELEMENT FROM DOM
 	  var element = d3.select('app-graph').node();
 	// SET SVG DIMENSIONS
@@ -571,19 +577,18 @@ export class GraphComponent implements OnInit {
 		  .enter()
 		  .append("g")
 		  .filter(function (d) { return d.camera == "yes" })
-		  .on("mouseover", function () {
-			  d3.select(this).select(".circle-fill")
+		  .on("mouseover", function (d) {
+			  	d3.select(this).select(".circle-fill")
 				  .style("fill", "#690303");
-				div.transition()
-					.duration(200)
-					.style("opacity", 0.9);
-				div.html(d.text)
-				.style("left", (d3.event.pageX + "px"))
-				.style("top", (d3.event.pageY)+ "px")
+				div.style("opacity", 0.9)
+					.style("left", (d3.event.pageX + "px"))
+					.style("top", (d3.event.pageY) + "px").html(d.x + "m");
+
 		  })
-		  .on("mouseout", function () {
+		  .on("mouseout", function (d) {
 			  d3.select(this).select(".circle-fill")
-				  .style("fill", "#fb0000")
+				  .style("fill", "#fb0000");
+			  div.style("opacity", 0);	
 		  });
 	  circle.append("circle")
 		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
@@ -618,10 +623,4 @@ export class GraphComponent implements OnInit {
 
 
 
-	  var div = d3.select("body").append("div")
-		  .attr("class", "tooltip")
-		  .style("opacity", 0);
-		  
-	
-		}
 }
