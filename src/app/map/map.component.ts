@@ -16,7 +16,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   private kaart: L.TileLayer;
 
   private cameraLayer: L.GeoJSON;
-  private routeLayer: L.GeoJSON;
+  private noCameraRouteLayer: L.GeoJSON;
+  private cameraRouteLayer: L.GeoJSON;
   private viewShedLayer: L.GeoJSON;
   private cityOutlineLayer: L.GeoJSON;
 
@@ -45,20 +46,23 @@ export class MapComponent implements OnInit, AfterViewInit {
       maxZoom: 24,
       minZoom: 14,
       zoom: 16,
-      attributionControl: false,
       zoomControl: false,
       maxBoundsViscosity: 0.5
     });
 
     this.map.setMaxBounds(maxBounds);
 
+    this.map.attributionControl.setPrefix('').setPosition('bottomleft');
+
     this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png', {
+      attribution: 'Referentiekaart: <a href="https://www.openstreetmap.org">OpenStreetMap</a>.',
       maxZoom: 24,
       zIndeX: 0
     });
 
     this.cameraLayer = L.geoJson().addTo(this.map);
-    this.routeLayer = L.geoJson().addTo(this.map);
+    this.noCameraRouteLayer = L.geoJson().addTo(this.map);
+    this.cameraRouteLayer = L.geoJson().addTo(this.map);
     this.viewShedLayer = L.geoJson().addTo(this.map);
     this.cityOutlineLayer = L.geoJson().addTo(this.map);
 
@@ -146,18 +150,40 @@ export class MapComponent implements OnInit, AfterViewInit {
     }).addTo(this.cameraLayer);
   }
 
-  private drawRoute(routeGeometry) {
-    this.routeLayer.clearLayers();
-    L.geoJson(routeGeometry).addTo(this.routeLayer);
-    this.map.fitBounds(this.routeLayer.getBounds());
+  private drawNoCameraRouteLayer(routeGeometry) {
+    this.noCameraRouteLayer.clearLayers();
+    L.geoJson(routeGeometry, {
+      style: {
+        color: 'green'
+      }
+    }).addTo(this.noCameraRouteLayer);
+    this.map.fitBounds(this.noCameraRouteLayer.getBounds());
+  }
+
+  private drawCameraRoute(routeGeometry) {
+    this.cameraRouteLayer.clearLayers();
+    L.geoJson(routeGeometry, {
+      style: {
+        color: 'red'
+      }
+    }).addTo(this.cameraRouteLayer);
+    this.map.fitBounds(this.cameraRouteLayer.getBounds());
   }
 
   public findRoute() {
-    this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
-      this.drawRoute(directions.geometry);
-      const intersection = this.intersectRouteWithViewshed(this.routeLayer.toGeoJSON(), this.viewShedLayer.toGeoJSON());
-      this.drawIntersection(intersection);
+    this.routingService.getCameraRoute(null, null).then(response => {
+      this.drawCameraRoute(response.route.geojson);
     });
+    this.routingService.getNonCameraRoute(null, null).then(response => {
+      console.log('no camera response', response);
+      this.drawNoCameraRouteLayer(response.route.geojson);
+    });
+
+    // this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
+    //   this.drawRoute(directions.geometry);
+    //   const intersection = this.intersectRouteWithViewshed(this.routeLayer.toGeoJSON(), this.viewShedLayer.toGeoJSON());
+    //   this.drawIntersection(intersection);
+    // });
   }
 
   private intersectRouteWithViewshed(route, viewsheds) {
@@ -171,7 +197,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   private drawIntersection(intersectingLines) {
-      L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.map);
+    L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.map);
   }
 
   private buildIntersectGeometry(intersectingPoints) {
@@ -187,13 +213,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     return fc;
   }
 
-  public setOrigin() {
-
+  public getRoute() {
+    this.routingService.getNonCameraRoute({}, {});
+    this.routingService.getCameraRoute({}, {});
   }
-
-  public setDestination() {
-
-  }
-
 
 }

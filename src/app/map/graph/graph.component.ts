@@ -13,7 +13,7 @@ export class GraphComponent implements OnInit {
   ngOnInit() {
   	this.DrawGraph()
   }
-  
+
   public DrawGraph(){
 	// FAKE DATA
 	  var data = [
@@ -113,7 +113,7 @@ export class GraphComponent implements OnInit {
 		  { "x": route_length, "y": 0, "text": "end" }
 	  ];
 
-	// TOOLTIP DIV 
+	// TOOLTIP DIV
 	  var div = d3.select("#graph").append("div")
 		  .attr("class", "tooltip")
 		  .style("opacity", 0);
@@ -181,7 +181,7 @@ export class GraphComponent implements OnInit {
 			})
 			.attr("y", -10)           // set offset y position
 			.attr("transform", "translate(0," + height / 2 + ")")
-			.attr("text-anchor", "end") // set 
+			.attr("text-anchor", "end") // set
 			.text(function (d) {
 				return d.x + "m"
 			})
@@ -222,7 +222,7 @@ export class GraphComponent implements OnInit {
 		  .on("mouseout", function (d) {
 			  d3.select(this).select(".circle-fill")
 				  .style("fill", "#fb0000");
-			  div.style("opacity", 0);	
+			  div.style("opacity", 0);
 		  });
 	  circle.append("circle")
 		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
