@@ -10,7 +10,7 @@ export class RoutingService {
   constructor(private http: AppHttpService) {
 
   }
-  // 
+  //
   // public getCyclingDirections(origin: string, destination: string) {
   //   /* Origin/Destination can be either address name or latlng string */
   //   const params = {
@@ -26,13 +26,13 @@ export class RoutingService {
   // }
 
   public getNonCameraRoute(origin, destination) {
-    const options = {"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', options);
+    const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
+    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
   }
 
   public getCameraRoute(origin, destination) {
-    const options = {"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', options);
+    const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
+    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
   }
 
   // public createRouteLinestring(directions) {
