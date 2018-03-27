@@ -8,7 +8,7 @@ body, html{
     height: 100%;
 }
 
-body, p, span, button, h1, h2, h3{
+body, p, span, button, h1, h2, h3, input{
     font-family: 'Roboto', sans-serif;
 }
 
@@ -16,6 +16,21 @@ body{
     background: #0a0a0a;
     background-image: url(assets/background.jpg);
     display: flex;
+}
+
+/* input placeholder */
+
+::placeholder { 
+    color: #333;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #333;
+}
+
+::-ms-input-placeholder { 
+    color: #333;
 }
 
 /* disable blue Chrome focus */
