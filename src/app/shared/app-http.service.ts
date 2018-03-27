@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppHttpService {
-
   constructor(private http: HttpClient) { }
 
     public currentRequests = 0;

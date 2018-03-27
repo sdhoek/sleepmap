@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./from-to.component.css']
 })
 export class FromToComponent implements OnInit {
+  //Observable.fromEvent(yourInput, 'keyup').debounceTime(1000).subscribe(value => /* */)
 
   constructor() { }
 
