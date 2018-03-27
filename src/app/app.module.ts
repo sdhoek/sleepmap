@@ -8,11 +8,14 @@ import { PopupComponent } from './map/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRouterModule} from './router/router.module';
+import { FromToComponent } from './map/from-to/from-to.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    PopupComponent
+    PopupComponent,
+    FromToComponent
   ],
   imports: [
     FormsModule,
