@@ -1,9 +1,24 @@
 .from-to-container {
-    left: 160px;
+   
     position: absolute;
-    top: 25px;
-    height: 250px;
-    width: 300px;
+  
+    height: 52px;
+    width: 380px;
     background: #f6be0e;
     z-index: 500;
+    right: 40px;
+    top: 40px;
+    display:flex;
+    flex-direction: row;
+    padding: 10px;
+}
+label {
+    font-size: small;
+}
+input {
+    font-size: 110%;
+    width: 176px;
+    background: #f3ca44;
+    border: solid 2px black;
+    padding: 2px;
 }
