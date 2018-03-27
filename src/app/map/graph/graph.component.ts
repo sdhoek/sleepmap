@@ -464,7 +464,7 @@ export class GraphComponent implements OnInit {
 		  { "x": route_length, "y": 0, "text": "end" }
 	  ];
 	// GET GRAPH ELEMENT FROM DOM
-	  var element = d3.select('#graph').node();
+	  var element = d3.select('app-graph').node();
 	// SET SVG DIMENSIONS
 	  var margin = { top: 20, right: 20, bottom: 20, left: 20 },
 		  width = element.getBoundingClientRect().width - margin.left - margin.right,
@@ -503,7 +503,7 @@ export class GraphComponent implements OnInit {
 		  .append("path")
 		  .attr("d", line)
 		  .style("stroke-width", 3)
-		  .style("stroke", "yellow")
+		  .style("stroke", "#f6be0e")
 		  .style("stroke-dasharray", ("5,5")) // make the stroke dashed
 		  .style("stroke-linecap", "round")  // stroke-linecap type
 		  .attr("transform", "translate(0,-" + height / 2 + ")");
@@ -520,7 +520,7 @@ export class GraphComponent implements OnInit {
 			.attr("class", "circle_start")
 			.attr("transform", "translate(0," + height / 2 + ")")
 			.style("fill", "rgba(0,0,0,1)")
-			.style("stroke", "yellow")
+			.style("stroke", "#f6be0e")
 			.style("stroke-width", size / 2);
 
 		var start_end_text = svg.selectAll(".p")
@@ -537,7 +537,7 @@ export class GraphComponent implements OnInit {
 			.text(function (d) {
 				return d.text
 			})
-			.style("fill", "yellow");
+			.style("fill", "#f6be0e");
 
 	//   CIRCLES
 	  var circle = svg.selectAll("g")
@@ -547,11 +547,11 @@ export class GraphComponent implements OnInit {
 		  .filter(function (d) { return d.camera == "yes" })
 		  .on("mouseover", function () {
 			  d3.select(this).select(".circle-fill")
-				  .style("fill", "steelblue")
+				  .style("fill", "#690303")
 		  })
 		  .on("mouseout", function () {
 			  d3.select(this).select(".circle-fill")
-				  .style("fill", "red")
+				  .style("fill", "#fb0000")
 		  });
 	  circle.append("circle")
 		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
@@ -561,7 +561,7 @@ export class GraphComponent implements OnInit {
 		  .attr("r", function (d) {
 			  return d.y * 10
 		  })
-		  .style("fill", "red");
+		  .style("fill", "#fb0000");
 	  circle.append("circle")
 		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
 		  .attr("cy", 0)
