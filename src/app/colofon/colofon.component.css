@@ -5,7 +5,7 @@
 }
 
 img.camera{
-    margin-top: 60px;
+    margin-top: 110px;
     width: 150px;
     max-width: 100%;
     animation: bounce 0.5s infinite alternate;
@@ -36,7 +36,6 @@ h1{
     font-size: 50px;
     font-weight: normal;
     margin-bottom: 22px;
-    margin-top: 15px;
 }
 
 h1:after {
@@ -51,52 +50,11 @@ h1:after {
     transform:translateX(-50%);  
   }
 
-.intro p, .colofon p{
+.intro p {
     color: #fff;
     max-width: 600px;
     display: inline-block;
     padding: 0 40px;
     margin-top: 0;
     margin-bottom: 0;
-}
-
-.colofon p {
-  padding-bottom: 20px;
-}
-
-.colofon a, .colofon a:visited, span.link {
-  color: #ccc;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-h2 {
-    color: #fff;
-}
-
-.stad{
-    width: 250px;
-    padding: 36px 0 16px;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 125px;
-    margin: 17px;
-    background: #1b1b1b;
-    border: 2px solid #f6be0e;
-}
-
-.stad:hover{
-    background: #272727;
-}
-
-.stad img{
-    max-width: 150px;
-    display: block;
-    margin: 0 auto 15px;
-}
-
-.colofon{
-    margin-top: 20px;
-    position: relative;
-    width: 100%;
 }

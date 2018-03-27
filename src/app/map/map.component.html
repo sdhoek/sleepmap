@@ -10,15 +10,14 @@ naar: <input [(ngModel)]="destination">
     <div class="sidebar" [ngClass]="{'active': active === true}" (click)="active = !active"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">
             <h3 routerLink="../..">Home</h3>
-            <h3 routerLink="../kaart/utrecht">Utrecht</h3>
-            <h3 routerLink="../kaart/amsterdam">Amsterdam</h3>
-            <h3 routerLink="../kaart/rotterdam">Rotterdam</h3>
-            <h3 routerLink="../kaart/den-haag">Den Haag</h3>
-            <h3>Over deze kaart</h3>
+            <h3 routerLink="../utrecht" (click)="recenterMap('utrecht')">Utrecht</h3>
+            <h3 routerLink="../amsterdam" (click)="recenterMap('amsterdam')">Amsterdam</h3>
+            <h3 routerLink="../rotterdam" (click)="recenterMap('rotterdam')">Rotterdam</h3>
+            <h3 routerLink="../den-haag" (click)="recenterMap('den-haag')">Den Haag</h3>
+            <h3 routerLink="../../colofon">Colofon</h3>
         </div>
     </div>
 </div>
-
 <app-popup>
 </app-popup>
 <app-from-to>
