@@ -4,9 +4,11 @@
   </div>
   <div class="intro">
     <h1>Colofon</h1>
-    <p>Camera's in de openbare ruimte spelen enerzijds een rol in het gevoel van veiligheid, maar anderzijds in het gevoel van
-      privacy.</p>
-    <h2>Data</h2>
+    <p>Camera's in de openbare ruimte spelen niet alleen een rol in het gevoel van veiligheid, maar ook in het gevoel van privacy.
+      Hoe vaak wordt jouw fietsroute door beveiligingscamera's gefilmd?
+      <strong>Onbegluurd</strong> laat je dat zien. Natuurlijk bieden we je ook een alternatieve route, die deze camera's zoveel
+      mogelijk ontwijkt!</p>
+    <h2>Bronnen</h2>
     <h3>Camera-locaties</h3>
     <p>De locaties van de camera's hebben we uit verschillende open data bronnen betrokken:</p>
     <ul>
@@ -17,27 +19,48 @@
         <a href="https://www.utrecht.nl/bestuur-en-organisatie/privacy/cameras/">Gemeente Utrecht</a>
       </li>
     </ul>
-    <p>Deze informatie is aangevuld met camera's uit de
+    <p>Deze informatie is aangevuld met camera's, die de gemeenten hebben geleverd aan de
       <a href="https://www.kadaster.nl/bgt">Basisregistratie Grootschalige Topografie (BGT/IMGeo)</a>. Ten slotte hebben we de camera's van de verdwenen website
       CameraLocaties.nl gebruikt.</p>
     <p>Het is opvallend, dat de locaties van camera's in de openbare ruimte niet zijn opgenomen in de
       <a href="https://data.overheid.nl/gemeentelijke-high-value-datalijst">Gemeentelijke High Value Datalijst</a>.</p>
+    <h3>Gebouwen</h3>
+    <p>Om het zichtveld van de camera's te bepalen, worden de gebouwen uit de
+      <a href="https://www.kadaster.nl/bag"> Basisadministratie Adressen en Gebouwen</a> (BAG) gebruikt.</p>
     <h3>Camera-zichtveld</h3>
-    <p>De aanname is, dat het beeld tot op een afstand van 25 meter herkenbaar is en dat alle camera's 360&deg; zicht hebben.
-      Camera's die bovenop een gebouw zijn geplaats zijn naar de dakrand verplaatst om vanaf die nieuwe positie het zichtveld
-      te berekenen. Het zichtveld is vervolgens bepaald op basis van de gebouwen uit de
-      <a href="https://www.kadaster.nl/bag"> Basisadministratie Adressen en Gebouwen</a> (BAG).</p>
+    <p>De aanname is, dat het camerabeeld tot op een afstand van 25 meter herkenbaar is en dat alle camera's 360&deg; zicht
+      hebben. Camera's die bovenop een gebouw zijn geplaats zijn naar de dakrand verplaatst om vanaf die nieuwe positie het
+      zichtveld te berekenen. Het zichtveld is vervolgens berekend met inachtname van de gebouwen.</p>
+    <p>Voor iedere camera hebben we per 10&deg; de maximale reikwijdte van een zichtlijn bepaald. Valt een zichtlijn op een
+      gebouw, dan telt de afstand tot aan de gevel. Door deze zichtlijnen samen te voegen ontstaan een zichtveld per camera.</p>
+    <h3>Routenetwerk</h3>
+      <p>Om de routes te berekenen hebben we <a href="https://www.openstreetmap.org/">OpenStreetMap</a> gedownload. De wegen die binnen een camera-zichtveld vallen hebben een extra attribuut gekregen, zodat we deze kunnen omzeilen in de berekening van de alternatieve routes.</p>
     <h2>Technologie</h2>
     <ul>
-      <li>Angular 2</li>
-      <li>Leaflet</li>
-      <li>FME</li>
-      <li>Postgres</li>
-      <li>PostGIS</li>
-      <li>pgRouting</li>
+      <li>
+        <a href="https://www.qgis.org">QGIS</a>
+      </li>
+      <li>
+        <a href="https://postgis.net/">PostGIS</a>
+      </li>
+      <li>
+        <a href="http://pgrouting.org">pgRouting</a>
+      </li>
+      <li>
+        <a href="https://www.leafletjs.com">Leaflet</a>
+      </li>
+      <li>
+        <a href="https://d3js.org/">D3</a>
+      </li>
+      <li>
+        <a href="https://angularjs.io/">Angular 2</a>
+      </li>
     </ul>
+    <p>De camera-zichtvelden zijn berekend met QGIS en PostGIS. Met pgRouting worden de routes berekend. De camera's en zichtvelden
+      worden als GeoJSON op de interactieve kaart op basis van Leaflet geplaatst. Het route-overzicht en camera-informatie
+      is gerealiseerd met D3. De web-applicatie is ontwikkeld met Angular 2.</p>
     <h2>Over ons</h2>
-    <p>De website is gemaakt door
+    <p>De website is een gezamenlijk project van 
       <a href="https://geogap.nl/">Geogap</a>,
       <a href="http://geoloep.nl">Geoloep</a> en
       <a href="https://webmapper.net/">Webmapper</a>
