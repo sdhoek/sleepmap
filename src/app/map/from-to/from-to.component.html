@@ -1,6 +1,9 @@
 <div class="checkbox-container">
-  <input type="checkbox" class="checkbox" [(ngModel)]="onbegluurd" name="gluren" (change)="setOnbegluurd($event)" value="false">
-  <span>Ik wil onbegluurd fietsen.</span>
+  <b>Ik wil onbegluurd fietsen.</b>
+  <label class="switch">
+    <input type="checkbox" [(ngModel)]="onbegluurd" name="gluren" (change)="setOnbegluurd($event)" value="false">
+    <span class="slider"></span>
+  </label>
 </div>
 
 <div class="from-to-container">
