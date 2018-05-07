@@ -109,10 +109,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     else {
       this.routingService.setNaar([e.latlng.lng,e.latlng.lat]);
-      this.routingService.findRoute(this.city);
+     
     }
     this.vannaar = !this.vannaar;
-
+    this.routingService.findRoute(this.city);
 
   }
   private drawViewsheds(viewsheds) {
