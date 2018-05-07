@@ -281,7 +281,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             "type": "Point",
             "coordinates": van
           }
-        , {
+        ,
         pointToLayer: function (feature, latlng) {
           return L.circleMarker(latlng, geojsonMarkerOptions);
         }
@@ -308,7 +308,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             "type": "Point",
             "coordinates": naar
           }
-        , {
+        ,
         pointToLayer: function (feature, latlng) {
           return L.circleMarker(latlng, geojsonMarkerOptions);
         }
