@@ -123,7 +123,7 @@ export class GraphComponent implements OnInit {
 
 		// SET SVG DIMENSIONS
 		// var margin = { top: 3, right: 10, bottom: 3, left: 10 },
-		var width = element.getBoundingClientRect().width-20,
+		var width = element.getBoundingClientRect().width-40,
 		height = element.getBoundingClientRect().height - 10;
 		var size = 5;
 		
@@ -139,12 +139,12 @@ export class GraphComponent implements OnInit {
 		var svg = d3.select("#graph")
 			.append("svg")
 			.attr("height", height )
-			.attr("width", width )
+			.attr("width", width+20 )
 			.attr("transform", "translate( 10 , -10)");
 		
 		// SCALES
 		var x = d3.scaleLinear()
-			.range([0, width-20])
+			.range([10, width])
 			.domain([0, route_length]);
 		var y = d3.scaleLinear()
 			.range([height, 0])
