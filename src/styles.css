@@ -109,8 +109,7 @@ video{
     position: absolute;
     right: 20px;
     top: 314px;
-    z-index: 600;
-
+    z-index: 401;
 }
 
 webcam{
