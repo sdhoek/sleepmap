@@ -113,24 +113,27 @@ export class GraphComponent implements OnInit {
 		  { "x": route_length, "y": 0, "text": "end" }
 	  ];
 
-	// TOOLTIP DIV
-	  var div = d3.select("#graph").append("div")
-		  .attr("class", "tooltip")
-		  .style("opacity", 0);
-
 	// GET GRAPH ELEMENT FROM DOM
 	  var element = d3.select('app-graph').node();
 	// SET SVG DIMENSIONS
-	  var margin = { top: 3, right: 10, bottom: 3, left: 10 },
-		  width = element.getBoundingClientRect().width - margin.left - margin.right,
-		  height = element.getBoundingClientRect().height - margin.top - margin.bottom;
+	  // var margin = { top: 3, right: 10, bottom: 3, left: 10 },
+		var width = element.getBoundingClientRect().width,
+		  height = element.getBoundingClientRect().height;
 	  var size = 5;
 	// DRAW SVG
 	  var svg = d3.select("#graph")
 		  .append("svg")
 		  .attr("height", height )
-		  .attr("width", width )
-		  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		  .attr("width", width );
+		  // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+      // TITLE
+      var title = d3.select("#graph")
+      .append("h1")
+      .html(sum_camera)
+      .attr("position", "relative")
+      .attr("transform", "translate(0,0)");
+;
 
 	// SCALES
 	  var x = d3.scaleLinear()
@@ -205,64 +208,93 @@ export class GraphComponent implements OnInit {
 			.style("fill", "#f6be0e")
 			.style("font-size", "12px");
 
-	//   CIRCLES
-	  var circle = svg.selectAll("g")
-		  .data(new_data2)
-		  .enter()
-		  .append("g")
-		  .filter(function (d) { return d.camera >  0 })
-		  .on("mouseover", function (d) {
-			  	d3.select(this).select(".circle-fill")
-				  .style("fill", "#690303");
-				div.style("opacity", 0.9)
-					.style("left", (d3.event.pageX + "px"))
-					.style("top", (d3.event.pageY)-100 + "px")
-					.html("<b>Afstand in zicht:</b> " + d.x + "m </br> <b>Aantal cameras:</b> " + d.camera + "</br> <b> Totaal aantal cameras: </b>" + sum_camera);
-		  })
-		  .on("mouseout", function (d) {
-			  d3.select(this).select(".circle-fill")
-				  .style("fill", "#fb0000");
-			  div.style("opacity", 0);
-		  });
+      var animation_circle_time = 1500;
+      var animation_circle_delay = 200;
+
+      // Graph CIRCLES
+    // TOOLTIP DIV
+    var div = d3.select("#graph").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+    //   Tooltip popup
+    var circle = svg.selectAll("g")
+      .data(new_data2)
+      .enter()
+      .append("g")
+      .filter(function (d) { return d.camera > 0 })
+      .on("mouseover", function (d) {
+        d3.select(this).select(".circle-fill")
+          .style("fill", "#690303");
+        div.style("opacity", 0.9)
+          .style("left", (d3.event.pageX + "px"))
+          .style("top", (d3.event.pageY) - 100 + "px")
+          .html("<b>Afstand in zicht:</b> " + d.x + "m </br> <b>Aantal cameras:</b> " + d.camera + "</br> <b> Totaal aantal cameras: </b>" + sum_camera);
+      })
+      .on("mouseout", function (d) {
+        d3.select(this).select(".circle-fill")
+          .style("fill", "#fb0000");
+        div.style("opacity", 0);
+      });
+
+	// Red fill Background
 	  circle.append("circle")
-		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
-		  .attr("cy", 0)
-		  .attr("transform", "translate(0," + height / 2 + ")")
-		  .attr("class", "circle-fill")
-		  .attr("r", function (d) {
-			  return d.camera * 15
-		  })
-		  .style("fill", "#fb0000");
+		.attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
+		.attr("cy", 0)
+		.attr("transform", "translate(0," + height / 2 + ")")
+    .attr("class", "circle-fill")
+    .style("fill", "#fb0000")
+    .attr("r", 0)
+		.transition()
+      .duration(animation_circle_time)
+    .delay(function(d,i){
+      return animation_circle_delay * i
+    })
+		.attr("r", function (d) {
+			return d.camera * 15
+		});
+		
+	//   Black line stroke
 	  circle.append("circle")
-		  .attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
-		  .attr("cy", 0)
-		  .attr("transform", "translate(0," + height / 2 + ")")
-		  .attr("class", "circle-stroke")
-		  .attr("r", function (d) {
-			  return (d.camera * 15) - 3
-		  })
+		.attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
+		.attr("cy", 0)
+		.attr("transform", "translate(0," + height / 2 + ")")
+		.attr("class", "circle-stroke")
 		  .style("stroke", "rgb(0,0,0)")
 		  .style("stroke-width", 2)
-		  .style("fill", "rgba(0,0,0,0)");
+		 .style("fill", "rgba(0,0,0,0)")
+		.transition()
+      .duration(animation_circle_time)
+      .delay(function (d, i) {
+        return animation_circle_delay * i
+      })
+		.attr("r", function (d) {
+			return (d.camera * 15) - 3
+		});
+		
+	// Image in circle
 	  circle
-		  .append("svg:image")
-		  .filter(function (d) { return d.camera > 0 })
-		  .attr("x", function (d) { return x(d.x - (d.dist / 2)) - ((d.camera*15)/2) })
-			.attr("y", function (d) { return -((d.camera * 15) / 2) })       // set offset y position
-			.attr("transform", "translate(0," + (height / 2)  + ")")
-		  // .attr("text-anchor", "middle") // set anchor y justification
-		  // .text(function (d) { return d.camera })
-		  // .style("font-size", size)
-			.attr("xlink:href", "../assets/camera-icon@2x.png")
-			.attr("width", function (d) {
-				return (d.camera * 15) 
-			})
-			.attr("height",  function(d) {
-				return (d.camera * 15) 
-			})
-			.attr("z-index", 500);
-
-
+		.append("svg:image")
+		.filter(function (d) { return d.camera > 0 })
+		.attr("x", function (d) { return x(d.x - (d.dist / 2)) - ((d.camera*15)/2) })
+		.attr("y", function (d) { return -((d.camera * 15) / 2) })       // set offset y position
+		.attr("transform", "translate(0," + (height / 2)  + ")")
+		// .attr("text-anchor", "middle") // set anchor y justification
+		// .text(function (d) { return d.camera })
+		// .style("font-size", size)
+    .attr("xlink:href", "../assets/camera-icon@2x.png")
+      .attr("z-index", 500)
+		.transition()
+      .duration(animation_circle_time)
+      .delay(function (d, i) {
+        return animation_circle_delay * i
+      })
+		.attr("width", function (d) {
+			return (d.camera * 15) 
+		})
+		.attr("height",  function(d) {
+			return (d.camera * 15) 
+		});
+   
 
 		}
 }
