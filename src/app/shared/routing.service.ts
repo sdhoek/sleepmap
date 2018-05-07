@@ -1,34 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AppHttpService } from './app-http.service';
 import * as querystring from 'querystring';
+
 @Injectable()
 export class RoutingService {
-  private routeApi = 'http://176.9.0.106:8000/api/route/';
+  public routeApi = 'http://api.onbegluurd.nl/utrecht/api/route';
   private onbegluurd = false;
 
   constructor(private http: AppHttpService) {
-
+   
   }
-  
+  public getRouteApi(city) {
+    return 'http://api.onbegluurd.nl/'+city+'/api/route';
+  }
   public setBegluurdStatus(bool: boolean) {
     this.onbegluurd = bool;
   }
 
-  private getNonCameraRoute(origin, destination) {
+  public getNonCameraRoute(origin, destination,city) {
     const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
-    return this.http.post(this.routeApi, body);
+    return this.http.post(this.getRouteApi(city), body);
   }
 
-  private getCameraRoute(origin, destination) {
+  public getCameraRoute(origin, destination,city) {
     const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
-    return this.http.post(this.routeApi, body);
+    return this.http.post(this.getRouteApi(city), body);
   }
 
-  public getRoute(origin, destination) {
+  public getRoute(origin, destination,city) {
     if (this.onbegluurd) {
-      return this.getNonCameraRoute(origin, destination);
+      return this.getNonCameraRoute(origin, destination,city);
     } else {
-      return this.getCameraRoute(origin, destination);
+      return this.getCameraRoute(origin, destination,city);
     }
   }
   // public createRouteLinestring(directions) {

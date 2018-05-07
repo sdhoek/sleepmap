@@ -84,6 +84,6 @@ export class FromToComponent implements OnInit {
   }
   public findRoute() {
 
-    this.routingService.getRoute(this.vanLoc,this.naarLoc)
+    this.routingService.getRoute(this.vanLoc,this.naarLoc,this.city)
   }
 }
