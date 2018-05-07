@@ -58,6 +58,13 @@ app-graph{
   margin:10px ;
   height:120px;
   width:95%;
- 
+  background: #101010de;
+  border: 1px solid #f6be0e;
 }
 
+app-graph #camera-titel{
+    display: inline;
+    font-size: 14pt;
+    margin:0;
+    padding:0;
+}
