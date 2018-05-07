@@ -155,6 +155,12 @@ export class GraphComponent implements OnInit {
 			.y(function (d) { return y(d.y); });
 
 		// GRAPH GROUP
+		// DASH ARRAY
+		var dashing = "5,5";
+		var dashCount = Math.ceil((Math.abs(x(route_line[1].x)) / 5) / 2);
+		var newDashes = new Array(dashCount).join(dashing + ",");
+		var dashArray = "0," + newDashes  + x(route_line[1].x);
+
 		// ROUTE
 		var route = svg.selectAll("route")
 			.data([route_line])
@@ -163,9 +169,14 @@ export class GraphComponent implements OnInit {
 			.attr("d", line)
 			.style("stroke-width", 3)
 			.style("stroke", "#f6be0e")
-			.style("stroke-dasharray", ("5,5")) // make the stroke dashed
+			.style("stroke-dasharray", dashArray)
 			.style("stroke-linecap", "round")  // stroke-linecap type
-			.attr("transform", "translate(0,-" + height / 2 + ")");
+			.attr("transform", "translate(0,-" + height / 2 + ")")
+			.attr("stroke-dashoffset", x(route_line[1].x))
+			.transition()
+			.duration(3000)
+			.attr("stroke-dashoffset",0);
+
 		var start_end = svg.selectAll(".circle_start")
 			.data(route_line)
 			.enter()
