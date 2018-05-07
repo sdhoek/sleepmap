@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -7,11 +7,13 @@ import * as d3 from 'd3';
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
+	@Input() data;
 
 	constructor() { }
 
 	ngOnInit() {
-	this.DrawGraph()
+		this.DrawGraph()
+		console.log(this.data);
 	}
 
 	public DrawGraph(){

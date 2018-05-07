@@ -23,6 +23,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private cityOutlineLayer: L.GeoJSON;
   private vanLayer: L.GeoJSON;
   private naarLayer: L.GeoJSON;
+  private routeData: any;
 
   private city: string;
   private cityLocations = CityLocations;
@@ -250,6 +251,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscribeToRoute() {
     return this.routingService.getRoute().subscribe(route => {
+      route.route.geojson.features.forEach(route => {
+        route.properties.length = turf.length(route.geometry, {units: 'meters'});
+      });
+      this.routeData = route;
       this.drawCameraRoute(route.route.geojson);
       // const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
       // this.drawIntersection(intersections);
