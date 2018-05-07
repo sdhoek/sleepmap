@@ -33,6 +33,9 @@ import { WebcamModule } from 'ngx-webcam';
     AppRouterModule,
     WebcamModule
   ],
+  exports: [
+    WebcamModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

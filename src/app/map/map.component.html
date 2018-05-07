@@ -1,4 +1,9 @@
 
+<div class="webcam-display">
+    <webcam *ngIf="showWebcam"></webcam>
+    <button *ngIf="showWebcam" class="cameraSwitch" (click)="toggleWebcam();"> <img src="../assets/camera-icon@2x.png"> </button>
+    <button *ngIf="!showWebcam" class="cameraSwitch" (click)="toggleWebcam();"> <img src="../assets/camera-icon@2x.png"> </button>
+</div>
 <app-graph *ngIf="routeData" [data]="routeData">
 </app-graph>
 

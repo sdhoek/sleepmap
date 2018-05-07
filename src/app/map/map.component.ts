@@ -6,6 +6,8 @@ import { CityLocations } from './city-locations.data';
 import { CameraService } from '../shared/camera.service';
 import { RoutingService } from '../shared/routing.service';
 import { Subscription } from 'rxjs/Subscription';
+import { WebcamImage } from 'ngx-webcam';
+
 
 @Component({
   selector: 'app-map',
@@ -37,6 +39,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   public arParams: Subscription;
 
   private vannaar = true;
+
+  public showWebcam = true;
+
 
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService, private ar: ActivatedRoute) {
     this.city = this.route.snapshot.params.city;
@@ -109,7 +114,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.vanSubscription.unsubscribe();
     this.naarSubscription.unsubscribe();
   }
- 
+  
+  public toggleWebcam(): void {
+    this.showWebcam = !this.showWebcam;
+  }
+
   private getPoint(e) {
     if(this.vannaar) {
       this.routingService.setVan([e.latlng.lng,e.latlng.lat])
