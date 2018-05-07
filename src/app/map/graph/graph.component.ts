@@ -52,12 +52,12 @@ export class GraphComponent implements OnInit, OnChanges {
 				{ "x": 0, "y": 0, "text": "start" },
 				{ "x": route_length, "y": 0, "text": "end" }
 			];
-
+			console.log(features)
 			//   CRUNCH DATA
 			//   Make data usable as line segments:
 			var new_data = [];
 			// CRUNCH DATA 
-			for (var i = 0; i < features.length - 1; i++) {
+			for (var i = 0; i < features.length ; i++) {
 				if (i == 0) {
 					new_data.push({
 						"id": i,
@@ -78,7 +78,7 @@ export class GraphComponent implements OnInit, OnChanges {
 					})
 				}
 			}; //end for loop
-			
+			console.log(new_data);	
 			// CLEAR BEFORE REDRAW
 			d3.select("#graph").selectAll("svg").remove();
 			d3.select("#graph").selectAll("h2").remove();
@@ -124,7 +124,7 @@ export class GraphComponent implements OnInit, OnChanges {
 
 			// GRAPH GROUP
 			var circle_size = d3.scaleLinear()
-				.range([20,100])
+				.range([20,90])
 				.domain([1,15]);
 
 			// DASH ARRAY
