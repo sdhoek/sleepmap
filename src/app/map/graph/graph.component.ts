@@ -133,7 +133,7 @@ export class GraphComponent implements OnInit {
 		var title = d3.select("#graph")
 			.append("h2")
 			.attr("id", "camera-titel")
-			.html("Totaal aantal cameras op je route: " + sum_camera)
+			.html("Totaal aantal cameras op je route: <span id=\"camera_getal\"> " + sum_camera + "</span>")
 			.style("font-size", "17px")
 			.attr("transform", "translate(0 , 0)");
 
@@ -232,15 +232,15 @@ export class GraphComponent implements OnInit {
 			.filter(function (d) { return d.camera > 0 })
 			.on("mouseover", function (d) {
 				d3.select(this).select(".circle-fill")
-				.style("fill", "#690303");
+					.style("fill", "#690303");
 				div.style("opacity", 0.9)
-				.style("left", (d3.event.pageX + "px"))
-				.style("top", (d3.event.pageY) - 100 + "px")
-				.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld bij deze camera(s):</b> <span>" + d.x + " meter </span>");
+					.style("left", (d3.event.pageX + "px"))
+					.style("top", (d3.event.pageY) - 100 + "px")
+					.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld bij deze camera(s):</b> <span>" + d.x + " meter </span>");
 			})
 			.on("mouseout", function (d) {
 				d3.select(this).select(".circle-fill")
-				.style("fill", "#fb0000");
+					.style("fill", "#fb0000");
 				div.style("opacity", 0);
 			});
 
@@ -255,10 +255,10 @@ export class GraphComponent implements OnInit {
 			.transition()
 			.duration(animation_circle_time)
 			.delay(function(d,i){
-			return animation_circle_delay * (i+1)
+				return animation_circle_delay * (i+1)
 			})
 			.attr("r", function (d) {
-			return d.camera * 15
+				return d.camera * 15
 			});
 		
 		//   Black line stroke
@@ -276,7 +276,7 @@ export class GraphComponent implements OnInit {
 				return animation_circle_delay * (i + 1)
 			})
 			.attr("r", function (d) {
-			return (d.camera * 15) - 3
+				return (d.camera * 15) - 3
 			});
 			
 		// Image in circle
@@ -297,10 +297,10 @@ export class GraphComponent implements OnInit {
 				return animation_circle_delay * (i + 1)
 			})
 			.attr("width", function (d) {
-			return (d.camera * 15) 
+				return (d.camera * 15) 
 			})
 			.attr("height",  function(d) {
-			return (d.camera * 15) 
+				return (d.camera * 15) 
 			});
 	
 	}; //END DRAW GRAPH FUNCTION	
