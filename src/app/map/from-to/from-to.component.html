@@ -1,3 +1,8 @@
+<div class="checkbox-container">
+  <input type="checkbox" class="checkbox" [(ngModel)]="onbegluurd" name="gluren" (change)="setOnbegluurd($event)" value="false">
+  <span>Ik wil onbegluurd fietsen.</span>
+</div>
+
 <div class="from-to-container">
   
   <div id="from-container">
@@ -28,8 +33,4 @@
     <button (click)="findRoute()" type="button" name="button">zoek</button>
   </div>
   
-  <div class="checkbox-container">
-    <input type="checkbox" class="checkbox" [(ngModel)]="onbegluurd" name="gluren" (change)="setOnbegluurd($event)" value="false">
-    <span>Ik wil onbegluurd fietsen.</span>
-  </div>
 </div>
