@@ -21,13 +21,13 @@ export class RoutingService {
     this.onbegluurd = bool;
   }
 
-  public getCameraRoute(origin, destination,city, privacy) {
-    const body = {"privacy": privacy, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+  public getCameraRoute(origin, destination, city, privacy) {
+    const body = {"privacy": privacy, "start": {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
     return this.http.post(this.getRouteApi(city), body);
   }
 
-  public findRoute(origin, destination,city) {
-    this.setRoute(this.getCameraRoute(origin,destination,city,this.onbegluurd))
+  public findRoute(origin, destination, city) {
+    this.setRoute(this.getCameraRoute(origin, destination, city, this.onbegluurd));
   }
 
   public setVan(origin) {
@@ -53,23 +53,5 @@ export class RoutingService {
   public setRoute(route) {
     this.routeSubject.next(route);
   }
-
-
-  // public createRouteLinestring(directions) {
-  //   const geometry = {
-  //     type: 'LineString',
-  //     coordinates: []
-  //   }
-  //   directions.routes[0].legs.forEach(leg => {
-  //     leg.steps.forEach(step => {
-  //       const start = [step.start_location.lng, step.start_location.lat];
-  //       const end = [step.end_location.lng, step.end_location.lat];
-  //       geometry.coordinates.push(start);
-  //       geometry.coordinates.push(end);
-  //     })
-  //   })
-  //
-  //   return geometry;
-  // }
 
 }

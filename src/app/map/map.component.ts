@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import * as L from 'leaflet';
 import * as turf from '@turf/turf';
 import { ActivatedRoute } from '@angular/router';
@@ -12,10 +12,9 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private map: L.Map;
   private kaart: L.TileLayer;
-
   private cameraLayer: L.GeoJSON;
   private noCameraRouteLayer: L.GeoJSON;
   private cameraRouteLayer: L.GeoJSON;
@@ -28,6 +27,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   public vanSubscription : Subscription;
   public naarSubscription : Subscription;
+  public routeSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
@@ -81,13 +81,18 @@ export class MapComponent implements OnInit, AfterViewInit {
     const viewsheds = this.cameraService.getCameraViewsheds();
     this.drawViewsheds(viewsheds);
 
-    this.naarSubscription = this.routingService.getNaar().subscribe(event=>{
-
-    })
-
+    this.routeSubscription = this.subscribeToRoute();
+    this.vanSubscription = this.subscribeToVan();
+    this.naarSubscription = this.subscribeToNaar();
 
   }
 
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
+    this.vanSubscription.unsubscribe();
+    this.naarSubscription.unsubscribe();
+  }
+ 
   private drawViewsheds(viewsheds) {
     const geojsonMarkerOptions = {
       radius: 8,
@@ -204,9 +209,22 @@ export class MapComponent implements OnInit, AfterViewInit {
     return fc;
   }
 
-  public getRoute() {
-    this.routingService.getNonCameraRoute({}, {});
-    this.routingService.getCameraRoute({}, {});
+  private subscribeToRoute() {
+    return this.routingService.getRoute().subscribe(route => {
+      console.log('route', route);
+    });
+  }
+
+  private subscribeToVan() {
+    return this.routingService.getVan().subscribe(van => {
+      console.log('van', van)
+    });
+  }
+
+  private subscribeToNaar() {
+    return this.routingService.getNaar().subscribe(naar => {
+      console.log('naar', naar)
+    });
   }
 
 }
