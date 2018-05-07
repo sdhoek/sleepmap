@@ -6,6 +6,7 @@ export class RoutingService {
   private googleProxy = 'http://localhost:3000/direction-proxy?';
   private googleUrlEndpoint = 'https://maps.googleapis.com/maps/api/directions/json?';
   private googleApiKey = 'AIzaSyDWy6wP5gJzKJ0xc7UV7j1gUJ2cv4NZv20';
+  private routeApi = 'http://176.9.0.106:8000/api/route/';
   private onbegluurd = false;
 
   constructor(private http: AppHttpService) {
@@ -31,13 +32,13 @@ export class RoutingService {
   }
 
   private getNonCameraRoute(origin, destination) {
-    const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
+    const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+    return this.http.post(this.routeApi, body);
   }
 
   private getCameraRoute(origin, destination) {
-    const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
+    const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+    return this.http.post(this.routeApi, body);
   }
 
   public getRoute(origin, destination) {
