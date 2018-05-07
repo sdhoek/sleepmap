@@ -250,7 +250,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private subscribeToRoute() {
-    return this.routingService.getRoute().subscribe(route => {
+    return this.routingService.getRoute().subscribe((route: any) => {
       route.route.geojson.features.forEach(route => {
         route.properties.length = turf.length(route.geometry, {units: 'meters'});
       });
