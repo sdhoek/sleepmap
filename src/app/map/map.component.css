@@ -56,7 +56,7 @@ app-graph{
   bottom: 0px;
   left: 0px;
   margin:10px;
-  height:150px;
+  height: 184px;
   width:95%;
   width: calc(100% - 20px);
   transition: left 0.5s;

@@ -206,7 +206,6 @@ app-graph #camera_getal{
     background: #fb0000;
     display: inline-block;
     color: #fff;
-    border-radius: 50%;
 }
 
 /* leaflet */
