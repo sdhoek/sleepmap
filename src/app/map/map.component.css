@@ -8,6 +8,7 @@ img.camera{
   z-index: 401;
   position: relative;
   margin: 15px;
+  cursor: pointer;
 }
 
 .logo-title{
