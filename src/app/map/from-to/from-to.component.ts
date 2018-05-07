@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { AppHttpService } from '../../shared/app-http.service';
 import { Subject } from 'rxjs/Subject';
 import "rxjs/add/operator/map";
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './from-to.component.html',
   styleUrls: ['./from-to.component.css']
 })
-export class FromToComponent implements OnInit, OnDestroy {
+export class FromToComponent implements OnInit, AfterViewInit, OnDestroy {
   //Observable.fromEvent(yourInput, 'keyup').debounceTime(1000).subscribe(value => /* */)
   private vanSubject = new Subject();
   public vanSuggests = [];
@@ -39,10 +39,14 @@ export class FromToComponent implements OnInit, OnDestroy {
       // Initialize search here.
      this.getNaarSuggest(event.target.value)
     });
+
+  }
+
+  ngAfterViewInit(){
     this.arParams = this.ar.params.subscribe((event: any) => {
       this.city = event.city;
       this.suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:'+event.city+'&fq=type:adres&q='
-    })
+    });
   }
 
   ngOnDestroy() {

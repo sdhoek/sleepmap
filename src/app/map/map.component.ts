@@ -34,10 +34,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   public vanSubscription : Subscription;
   public naarSubscription : Subscription;
   public routeSubscription: Subscription;
+  public arParams: Subscription;
 
   private vannaar = true;
 
-  constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
+  constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService, private ar: ActivatedRoute) {
     this.city = this.route.snapshot.params.city;
     this.cityOutlines = this.cameraService.getCityOutlines();
   }
@@ -59,7 +60,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       maxBoundsViscosity: 0.5
     });
 
-    this.map.on('click',this.getPoint,this)
+    this.map.on('click', this.getPoint, this)
 
     this.map.setMaxBounds(maxBounds);
 
@@ -98,6 +99,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.vanSubscription = this.subscribeToVan();
     this.naarSubscription = this.subscribeToNaar();
 
+    this.arParams = this.ar.params.subscribe((event: any) => {
+      this.city = event.city;
+    });
   }
 
   ngOnDestroy() {
@@ -130,7 +134,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     L.geoJson(viewsheds, geojsonMarkerOptions).addTo(this.viewShedLayer);
   }
 
-  public recenterMap(cityName: string) {
+  public openMenu(event) {
+    event.stopPropagation();
+    this.sidebarActive = !this.sidebarActive;
+  }
+
+  public recenterMap(cityName: string, event) {
+    event.stopPropagation();
+
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === cityName).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === cityName).mapBounds;
 
