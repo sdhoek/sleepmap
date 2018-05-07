@@ -171,6 +171,14 @@ app-graph .tooltip span:last-of-type{
     margin-bottom: 0px;
 }
 
+app-graph #camera_getal{
+    padding: 3px 10px;
+    background: #fb0000;
+    display: inline-block;
+    color: #fff;
+    border-radius: 50%;
+}
+
 /* leaflet */
 
 .leaflet-container {
