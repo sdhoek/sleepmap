@@ -60,9 +60,7 @@ export class FromToComponent implements OnInit, OnDestroy {
 
   public setOnbegluurd(event: Event) {
     this.routingService.setBegluurdStatus(this.onbegluurd);
-    if(this.naar !== undefined && this.van!== undefined) {
-      this.routingService.findRoute(this.city);
-    }
+    this.routingService.findRoute(this.city);
   }
 
   public getVanSuggest(van) {

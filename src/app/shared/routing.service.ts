@@ -29,9 +29,11 @@ export class RoutingService {
   }
 
   public findRoute(city) {
-    this.getCameraRoute(city, this.onbegluurd).then(route => {
-      this.setRoute(route);
-    });
+    if(this.van.length>0&&this.naar.length>0) {
+      this.getCameraRoute(city, this.onbegluurd).then(route => {
+        this.setRoute(route);
+      });
+    }
   }
 
   public setVan(origin) {
