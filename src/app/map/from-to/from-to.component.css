@@ -170,7 +170,7 @@ button:active {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ffe490;
+    background-color: #c99d0c;
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -188,11 +188,11 @@ button:active {
   }
   
   input:checked + .slider {
-    background-color: #c99d0c;
+    background-color: #ffe490;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #c99d0c;
+    box-shadow: 0 0 1px #ffe490;
   }
   
   input:checked + .slider:before {

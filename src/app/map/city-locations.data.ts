@@ -11,7 +11,11 @@ const cityLocations = [
       ],[
         52.130767, 5.198190
       ]
-    ]
+    ],
+    example: {
+      to: [5.1185087, 52.0946698],
+      from: [5.1202621, 52.0919555]
+    }
   }, {
     name: 'rotterdam',
     location: {
@@ -25,7 +29,12 @@ const cityLocations = [
       [
         51.989192, 4.623303
       ]
-    ]
+    ],
+    example : {
+      to: [4.4802888, 51.9199472],
+      from: [4.4678848, 51.9165601]
+    }
+
   }, {
     name: 'den-haag',
     location: {
@@ -39,7 +48,11 @@ const cityLocations = [
       [
         52.120692, 4.442808
       ]
-    ]
+    ],
+    example : {
+      to: [4.3186533, 52.0794527],
+      from: [4.3103055, 52.0815902]
+    }
   }, {
     name: 'amsterdam',
     location: {
@@ -52,7 +65,12 @@ const cityLocations = [
       ],[
         52.428645, 5.060976
       ]
-    ]
+    ],
+    example : {
+      to: [4.8987588, 52.3731412],
+      from: [4.8990849, 52.3648047]
+    }
+
   }
 ]
 
