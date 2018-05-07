@@ -52,14 +52,15 @@ img.camera{
 app-graph{
   position: absolute;
   z-index: 401;
-  color: #fff;
   bottom: 0px;
   left: 0px;
   margin:10px;
-  background: #101010de;
-  transition: left 0.5s;
   height:100px;
-  width:60%;
-  border: 1px solid #f6be0e;
+  width:95%;
+  width: calc(100% - 20px);
+  transition: left 0.5s;
+  color: #fff;
 }
+
+
 
