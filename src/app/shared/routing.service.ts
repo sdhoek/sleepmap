@@ -10,6 +10,8 @@ export class RoutingService {
   private vanSubject = new Subject();
   private naarSubject = new Subject();
   private routeSubject = new Subject();
+  private van = [];
+  private naar = [];
 
   constructor(private http: AppHttpService) {
    
@@ -21,18 +23,19 @@ export class RoutingService {
     this.onbegluurd = bool;
   }
 
-  public getCameraRoute(origin, destination, city, privacy) {
-    const body = {"privacy": privacy, "start": {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+  public getCameraRoute(city, privacy) {
+    const body = {"privacy": privacy, "start": {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":this.van }},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":this.naar}}};
     return this.http.post(this.getRouteApi(city), body);
   }
 
-  public findRoute(origin, destination, city) {
-    this.getCameraRoute(origin, destination, city, this.onbegluurd).then(route => {
+  public findRoute(city) {
+    this.getCameraRoute(city, this.onbegluurd).then(route => {
       this.setRoute(route);
     });
   }
 
   public setVan(origin) {
+    this.van = origin;
     this.vanSubject.next(origin);
   }
 
@@ -41,6 +44,7 @@ export class RoutingService {
   }
 
   public setNaar(destination) {
+    this.naar = destination;
     this.naarSubject.next(destination);
   }
 
@@ -53,6 +57,7 @@ export class RoutingService {
   }
 
   public setRoute(route) {
+    console.log(route)
     this.routeSubject.next(route);
   }
 

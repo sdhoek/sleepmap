@@ -21,6 +21,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private viewShedLayer: L.GeoJSON;
   private intersectionLayer: L.GeoJSON;
   private cityOutlineLayer: L.GeoJSON;
+  private vanLayer: L.GeoJSON;
+  private naarLayer: L.GeoJSON;
 
   private city: string;
   private cityLocations = CityLocations;
@@ -29,6 +31,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   public vanSubscription : Subscription;
   public naarSubscription : Subscription;
   public routeSubscription: Subscription;
+
+  private vannaar = true;
 
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
@@ -52,6 +56,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       maxBoundsViscosity: 0.5
     });
 
+    this.map.on('click',this.getPoint,this)
+
     this.map.setMaxBounds(maxBounds);
 
     this.map.attributionControl.setPrefix('').setPosition('bottomleft');
@@ -67,6 +73,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cameraRouteLayer = L.geoJson().addTo(this.map);
     this.viewShedLayer = L.geoJson().addTo(this.map);
     this.cityOutlineLayer = L.geoJson().addTo(this.map);
+    this.vanLayer = L.geoJson().addTo(this.map);
+    this.naarLayer = L.geoJson().addTo(this.map);
     this.intersectionLayer = L.geoJson().addTo(this.map);
 
     this.drawCityOutline(this.city);
@@ -95,6 +103,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.naarSubscription.unsubscribe();
   }
  
+  private getPoint(e) {
+    if(this.vannaar) {
+      this.routingService.setVan([e.latlng.lng,e.latlng.lat])
+    }
+    else {
+      this.routingService.setNaar([e.latlng.lng,e.latlng.lat]);
+      this.routingService.findRoute(this.city);
+    }
+    this.vannaar = !this.vannaar;
+
+
+  }
   private drawViewsheds(viewsheds) {
     const geojsonMarkerOptions = {
       radius: 8,
@@ -239,13 +259,55 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscribeToVan() {
     return this.routingService.getVan().subscribe(van => {
-      console.log('van', van);
+      this.vanLayer.clearLayers();
+      const geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#000",
+        color: "yellow",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      };
+      L.geoJson(
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": van
+          }
+        , {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+      }).addTo(this.vanLayer);
     });
   }
 
   private subscribeToNaar() {
     return this.routingService.getNaar().subscribe(naar => {
-      console.log('naar', naar);
+      this.naarLayer.clearLayers();
+      const geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#000",
+        color: "yellow",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      };
+      L.geoJson(
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": naar
+          }
+        , {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+      }).addTo(this.naarLayer);
     });
   }
 
