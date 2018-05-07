@@ -3,30 +3,13 @@ import { AppHttpService } from './app-http.service';
 import * as querystring from 'querystring';
 @Injectable()
 export class RoutingService {
-  private googleProxy = 'http://localhost:3000/direction-proxy?';
-  private googleUrlEndpoint = 'https://maps.googleapis.com/maps/api/directions/json?';
-  private googleApiKey = 'AIzaSyDWy6wP5gJzKJ0xc7UV7j1gUJ2cv4NZv20';
   private routeApi = 'http://176.9.0.106:8000/api/route/';
   private onbegluurd = false;
 
   constructor(private http: AppHttpService) {
 
   }
-  //
-  // public getCyclingDirections(origin: string, destination: string) {
-  //   /* Origin/Destination can be either address name or latlng string */
-  //   const params = {
-  //     origin: origin,
-  //     destination: destination,
-  //     mode: 'bicycling',
-  //     key: this.googleApiKey
-  //   }
-  //   return this.http.get(this.googleProxy + querystring.stringify(params)).then(directions => {
-  //     directions.geometry = this.createRouteLinestring(directions);
-  //     return directions;
-  //   });
-  // }
-
+  
   public setBegluurdStatus(bool: boolean) {
     this.onbegluurd = bool;
   }
