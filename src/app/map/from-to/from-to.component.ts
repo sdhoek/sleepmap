@@ -65,6 +65,7 @@ export class FromToComponent implements OnInit {
   }
 
   public locateNaar(item) {
+    this.naar = item.weergavenaam;
     this.http.get(this.locateUrl+item.id).then(r=>{
       let pt = r.response.docs[0].centroide_ll;
       this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
@@ -73,6 +74,7 @@ export class FromToComponent implements OnInit {
   }
 
   public locateVan(item) {
+    this.van = item.weergavenaam;
     this.http.get(this.locateUrl+item.id).then(r=>{
       let pt = r.response.docs[0].centroide_ll;
       this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
