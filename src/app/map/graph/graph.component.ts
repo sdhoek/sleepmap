@@ -118,7 +118,7 @@ export class GraphComponent implements OnInit {
 
 		// CLEAR BEFORE REDRAW
 		d3.select("#graph").selectAll("svg").remove();
-		d3.select("#graph").selectAll("h1").remove();
+		d3.select("#graph").selectAll("h2").remove();
 		d3.select("#graph").selectAll("div").remove();
 		// TOOLTIP DIV
 		var div = d3.select("#graph").append("div")
@@ -132,10 +132,10 @@ export class GraphComponent implements OnInit {
 		
 		// TITLE
 		var title = d3.select("#graph")
-			.append("h1")
+			.append("h2")
 			.attr("id", "camera-titel")
 			.html("Totaal aantal cameras op je route: " + sum_camera)
-			.style("font-size", "10pt")
+			.style("font-size", "17px")
 			.attr("transform", "translate(0 , 0)");
 
 		// DRAW SVG
