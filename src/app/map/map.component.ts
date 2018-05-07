@@ -269,15 +269,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       type: 'LineString',
       coordinates: []
     };
-    if (lineResponseFeatureCollection.length > 0) {
-      lineResponseFeatureCollection.forEach(responseLine => {
-        line.coordinates.push(...responseLine.geometry.coordinates);
-        console.log(responseLine);
+    lineResponseFeatureCollection.forEach(responseLine => {
+      line.coordinates.push(...responseLine.geometry.coordinates);
+      console.log(responseLine);
 
-      })
-      // fullLine()
-      // lineResponseFeatureCollection
-    }
+    })
+    // fullLine()
+    // lineResponseFeatureCollection
     console.log(line);
 
     return line;
