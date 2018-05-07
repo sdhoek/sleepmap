@@ -217,7 +217,7 @@ export class GraphComponent implements OnInit {
 				div.style("opacity", 0.9)
 					.style("left", (d3.event.pageX + "px"))
 					.style("top", (d3.event.pageY)-100 + "px")
-					.html("<img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld door deze camera(s):</b> <span>" + d.x + " meter </span> <img src='../assets/list-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span><img src='../assets/camera-icon@2x.png' /><b> Aantal cameras op deze route: </b><span>" + sum_camera) + "</span>";
+					.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld door deze camera(s):</b> <span>" + d.x + " meter </span> <img src='../assets/list-icon@2x.png' /><b> Aantal cameras op deze route: </b><span>" + sum_camera) + "</span>";
 		  })
 		  .on("mouseout", function (d) {
 			  d3.select(this).select(".circle-fill")
