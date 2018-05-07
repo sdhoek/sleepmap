@@ -79,6 +79,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     const viewsheds = this.cameraService.getCameraViewsheds();
     this.drawViewsheds(viewsheds);
+
+    this.getRoute().then((route) => {
+      this.drawCameraRoute(route.route.geojson);
+      console.log(route)
+    });
   }
 
   private drawViewsheds(viewsheds) {
@@ -214,8 +219,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public getRoute() {
-    this.routingService.getNonCameraRoute({}, {});
-    this.routingService.getCameraRoute({}, {});
+    return this.routingService.getNonCameraRoute({}, {});
+    // return this.routingService.getCameraRoute({}, {});
   }
 
 }

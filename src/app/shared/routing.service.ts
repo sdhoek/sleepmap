@@ -30,14 +30,14 @@ export class RoutingService {
     this.onbegluurd = bool;
   }
 
-  private getNonCameraRoute(origin, destination) {
+  public getNonCameraRoute(origin, destination) {
     const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
+    return this.http.post('http://176.9.0.106:8000/api/route/', body);
   }
 
-  private getCameraRoute(origin, destination) {
+  public getCameraRoute(origin, destination) {
     const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.087872,52.072859]}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[5.119543,52.074152]}}};
-    return this.http.post('http://service.geoloep.nl/routing/api/route/', body);
+    return this.http.post('http://176.9.0.106:8000/api/route/', body);
   }
 
   public getRoute(origin, destination) {
