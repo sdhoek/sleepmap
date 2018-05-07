@@ -136,6 +136,13 @@ webcam{
     z-index: 402;
     padding-top: 3px;
     cursor: pointer;
+    display: none;
+}
+
+@media(min-width: 550px){
+    .cameraSwitch{
+        display: block;
+    }
 }
 
 .cameraSwitch img{
