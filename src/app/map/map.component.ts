@@ -251,9 +251,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscribeToRoute() {
     return this.routingService.getRoute().subscribe(route => {
       this.drawCameraRoute(route.route.geojson);
-      const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
-      this.drawIntersection(intersections);
-      console.log(intersections);
+      // const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
+      // this.drawIntersection(intersections);
+      // console.log(intersections);
     });
   }
 
