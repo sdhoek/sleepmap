@@ -27,7 +27,9 @@ export class RoutingService {
   }
 
   public findRoute(city) {
-    this.setRoute(this.getCameraRoute(city, this.onbegluurd));
+    this.getCameraRoute(city, this.onbegluurd).then(route => {
+      this.setRoute(route);
+    });
   }
 
   public setVan(origin) {

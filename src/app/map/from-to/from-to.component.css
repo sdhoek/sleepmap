@@ -58,9 +58,12 @@ button:active {
     position: absolute;
     background: #ffe79a;
     left: 0px;
-    top: 102px;
-    width: 400px;
+    top: 73px;
+    width: auto;
     min-height: 317px;
+    z-index: 1;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 #vansuggests ul{
@@ -84,9 +87,12 @@ button:active {
     position: absolute;
     background: #ffe79a;
     left: 0px;
-    top: 102px;
-    width: 400px;
+    top: 132px;
+    width: auto;
     min-height: 317px;
+    z-index: 1;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 #naarsuggests ul{

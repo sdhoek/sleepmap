@@ -15,7 +15,6 @@ export class GraphComponent implements OnInit {
 	}
 
 	public DrawGraph(){
-		console.log("draw!!!!")
 		// FAKE DATA
 		var data = [
 			{ "distance": 1, "camera":0},
@@ -120,7 +119,11 @@ export class GraphComponent implements OnInit {
 		// CLEAR BEFORE REDRAW
 		d3.select("#graph").selectAll("svg").remove();
 		d3.select("#graph").selectAll("h1").remove();
-
+		d3.select("#graph").selectAll("div").remove();
+		// TOOLTIP DIV
+		var div = d3.select("#graph").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
 		// SET SVG DIMENSIONS
 		// var margin = { top: 3, right: 10, bottom: 3, left: 10 },
 		var width = element.getBoundingClientRect().width-40,
@@ -155,6 +158,12 @@ export class GraphComponent implements OnInit {
 			.y(function (d) { return y(d.y); });
 
 		// GRAPH GROUP
+		// DASH ARRAY
+		var dashing = "5,5";
+		var dashCount = Math.ceil((Math.abs(x(route_line[1].x)) / 5) / 2);
+		var newDashes = new Array(dashCount).join(dashing + ",");
+		var dashArray = "0," + newDashes  + x(route_line[1].x);
+
 		// ROUTE
 		var route = svg.selectAll("route")
 			.data([route_line])
@@ -163,9 +172,14 @@ export class GraphComponent implements OnInit {
 			.attr("d", line)
 			.style("stroke-width", 3)
 			.style("stroke", "#f6be0e")
-			.style("stroke-dasharray", ("5,5")) // make the stroke dashed
+			.style("stroke-dasharray", dashArray)
 			.style("stroke-linecap", "round")  // stroke-linecap type
-			.attr("transform", "translate(0,-" + height / 2 + ")");
+			.attr("transform", "translate(0,-" + height / 2 + ")")
+			.attr("stroke-dashoffset", x(route_line[1].x))
+			.transition()
+			.duration(3000)
+			.attr("stroke-dashoffset",0);
+
 		var start_end = svg.selectAll(".circle_start")
 			.data(route_line)
 			.enter()
@@ -219,10 +233,7 @@ export class GraphComponent implements OnInit {
 		var animation_circle_delay = 200;
 
 		// Graph CIRCLES
-		// TOOLTIP DIV
-		var div = d3.select("#graph").append("div")
-			.attr("class", "tooltip")
-			.style("opacity", 0);
+		
 		//   Tooltip popup
 		var circle = svg.selectAll("g")
 			.data(new_data2)
@@ -235,7 +246,7 @@ export class GraphComponent implements OnInit {
 				div.style("opacity", 0.9)
 				.style("left", (d3.event.pageX + "px"))
 				.style("top", (d3.event.pageY) - 100 + "px")
-				.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld door deze camera(s):</b> <span>" + d.x + " meter </span> <img src='../assets/list-icon@2x.png' /><b> Aantal cameras op deze route: </b><span>" + sum_camera) + "</span>";
+				.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld bij deze camera(s):</b> <span>" + d.x + " meter </span>");
 			})
 			.on("mouseout", function (d) {
 				d3.select(this).select(".circle-fill")
