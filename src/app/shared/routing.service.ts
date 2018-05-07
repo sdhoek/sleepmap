@@ -45,6 +45,11 @@ export class RoutingService {
     return this.vanSubject.asObservable();
   }
 
+  public clearVanAndNaar(){
+    this.vanSubject.next([]);
+    this.naarSubject.next([]);
+  }
+
   public setNaar(destination) {
     this.naar = destination;
     this.naarSubject.next(destination);
@@ -59,7 +64,6 @@ export class RoutingService {
   }
 
   public setRoute(route) {
-    console.log(route)
     this.routeSubject.next(route);
   }
 

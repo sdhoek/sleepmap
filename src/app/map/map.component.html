@@ -3,13 +3,13 @@
 </app-graph>
 
 <div class="map" id="map">
-    <div class="sidebar" [ngClass]="{'active': sidebarActive === true}" (click)="sidebarActive = !sidebarActive"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
+    <div class="sidebar" [ngClass]="{'active': sidebarActive === true}" (click)="openMenu($event)"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">
             <h3 routerLink="../..">Home</h3>
-            <h3 routerLink="../utrecht" (click)="recenterMap('utrecht')">Utrecht</h3>
-            <h3 routerLink="../amsterdam" (click)="recenterMap('amsterdam')">Amsterdam</h3>
-            <h3 routerLink="../rotterdam" (click)="recenterMap('rotterdam')">Rotterdam</h3>
-            <h3 routerLink="../den-haag" (click)="recenterMap('den-haag')">Den Haag</h3>
+            <h3 routerLink="../utrecht" (click)="recenterMap('utrecht', $event)">Utrecht</h3>
+            <h3 routerLink="../amsterdam" (click)="recenterMap('amsterdam', $event)">Amsterdam</h3>
+            <h3 routerLink="../rotterdam" (click)="recenterMap('rotterdam', $event)">Rotterdam</h3>
+            <h3 routerLink="../den-haag" (click)="recenterMap('den-haag', $event)">Den Haag</h3>
             <h3 routerLink="../../colofon">Colofon</h3>
         </div>
     </div>
