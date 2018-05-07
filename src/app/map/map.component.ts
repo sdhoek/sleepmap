@@ -23,7 +23,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private cityOutlineLayer: L.GeoJSON;
   private vanLayer: L.GeoJSON;
   private naarLayer: L.GeoJSON;
-  private routeData: any;
+  public routeData: any;
+
+  public sidebarActive = false;
 
   private city: string;
   private cityLocations = CityLocations;

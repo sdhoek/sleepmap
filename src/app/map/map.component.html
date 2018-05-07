@@ -3,7 +3,7 @@
 </app-graph>
 
 <div class="map" id="map">
-    <div class="sidebar" [ngClass]="{'active': active === true}" (click)="active = !active"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
+    <div class="sidebar" [ngClass]="{'active': sidebarActive === true}" (click)="sidebarActive = !sidebarActive"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">
             <h3 routerLink="../..">Home</h3>
             <h3 routerLink="../utrecht" (click)="recenterMap('utrecht')">Utrecht</h3>
@@ -16,5 +16,3 @@
 </div>
 <app-from-to>
 </app-from-to>
-
-<button type="button" name="button" (click)="findRoute()">get routes</button>
