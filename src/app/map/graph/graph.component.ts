@@ -13,108 +13,74 @@ export class GraphComponent implements OnInit {
 
 	ngOnInit() {
 		this.DrawGraph()
-		console.log(this.data);
+		// console.log(this.data);
 	}
 
 	public DrawGraph(){
-		// FAKE DATA
-		var data = [
-			{ "distance": 1, "camera":0},
-			{ "distance": 100, "camera": 0 },
-			{ "distance": 20, "camera": 2 },
-			{ "distance": 100, "camera": 0 },
-			{ "distance": 10, "camera": 1 },
-			{ "distance": 15, "camera": 0 },
-			{ "distance": 5, "camera": 1 },
-			{ "distance": 60, "camera": 0 },
-			{ "distance": 47, "camera": 1 },
-			{ "distance": 35, "camera": 0 },
-			{ "distance": 9, "camera": 2 },
-			{ "distance": 1, "camera": 0 },
-			{ "distance": 5, "camera": 1 },
-			{ "distance": 180, "camera": 0 },
-			{ "distance": 14, "camera": 0 }
-		]
+		var data = this.data;
+		console.log(data)
+		//MAIN ROUTE STATS
+		var route_length = data.route.length;
+
+		var features = data.route.geojson.features;
+	
 		//   GENERAL ROUTE INFO
-		function sum_dist(obj,) {
-			var sum = 0;
-			for (let i = 0; i < data.length; i++) {
-				sum += data[i].distance;
-			}
-			return sum;
-		};
+		// function sum_dist(obj,) {
+		// 	var sum = 0;
+		// 	for (let i = 0; i < data.length; i++) {
+		// 		sum += data[i].distance;
+		// 	}
+		// 	return sum;
+		// };
 		function sum_cam(obj, ) {
 			var sum = 0;
-			for (let i = 0; i < data.length; i++) {
-				sum += data[i].camera;
+			for (let i = 0; i < features.length; i++) {
+				sum += features[i].properties.cameras;
 			}
 			return sum;
 		};
-		var route_length = sum_dist(data);
+
 		var sum_camera = sum_cam(data);
+
+		console.log("lengte " + route_length);
+		console.log("sum: " + sum_camera);
+
+		// SIMPLE ROUTE DATA OVERVIEW
+		var route_line = [
+			{ "x": 0, "y": 0, "text": "start" },
+			{ "x": route_length, "y": 0, "text": "end" }
+		];
+
 
 		//   CRUNCH DATA
 		//   Make data usable as line segments:
 		var i = 0;
 		var new_data = [];
-		var new_data2 = [];
 
-		for (var i = 0; i < data.length - 1; i++) {
+		// }; //end for loop
+		for (var i = 0; i < features.length - 1; i++) {
 			if (i == 0) {
 				new_data.push({
 					"id": i,
-					"x": data[i].distance,
+					"x": features[i].properties.length,
 					"y": 0,
-					"dist": data[i].distance,
-					"camera": data[i].camera
+					"dist": features[i].properties.length,
+					"camera": features[i].properties.cameras
 				})
 			}
 			else {
 				var j = new_data.length;
 				new_data.push({
 					"id": i,
-					"x": new_data[j - 1].x,
+					"x": new_data[j - 1].x + features[i].properties.length,
 					"y": 0,
-					"dist": data[i].distance,
-					"camera": data[i].camera
-				})
-				new_data.push({
-					"id": i,
-					"x": new_data[j - 1].x + data[i].distance,
-					"y": 0,
-					"dist": data[i].distance,
-					"camera": data[i].camera
-				})
-			}
-		}; //end for loop
-		for (var i = 0; i < data.length - 1; i++) {
-			if (i == 0) {
-				new_data2.push({
-					"id": i,
-					"x": data[i].distance,
-					"y": 0,
-					"dist": data[i].distance,
-					"camera": data[i].camera
-				})
-			}
-			else {
-				var j = new_data2.length;
-				new_data2.push({
-					"id": i,
-					"x": new_data2[j - 1].x + data[i].distance,
-					"y": 0,
-					"dist": data[i].distance,
-					"camera": data[i].camera
+					"dist": features[i].properties.length,
+					"camera": features[i].properties.cameras
 				})
 			}
 		}; //end for loop
 
-		// SIMPLE ROUTE DATA
-		var route_line = [
-			{ "x": 0, "y": 0, "text": "start" },
-			{ "x": route_length, "y": 0, "text": "end" }
-		];
-		
+
 		// CLEAR BEFORE REDRAW
 		d3.select("#graph").selectAll("svg").remove();
 		d3.select("#graph").selectAll("h2").remove();
@@ -169,7 +135,7 @@ export class GraphComponent implements OnInit {
 		// TRANSITION SETTINGS
 		var animation_time = 3000;
 		var animation_circle_time = 1500;
-		var amount_of_circles = new_data2.length;
+		var amount_of_circles = new_data.length;
 		var animation_circle_delay = animation_time/amount_of_circles;
 		
 		// ROUTE
@@ -228,7 +194,7 @@ export class GraphComponent implements OnInit {
 		
 		//   Tooltip popup
 		var circle = svg.selectAll("g")
-			.data(new_data2)
+			.data(new_data)
 			.enter()
 			.append("g")
 			.filter(function (d) { return d.camera > 0 })
