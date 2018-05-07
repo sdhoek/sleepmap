@@ -20,6 +20,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private cameraRouteLayer: L.GeoJSON;
   private viewShedLayer: L.GeoJSON;
   private cityOutlineLayer: L.GeoJSON;
+  private vanLayer: L.GeoJSON;
+  private naarLayer: L.GeoJSON;
 
   private city: string;
   private cityLocations = CityLocations;
@@ -70,6 +72,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cameraRouteLayer = L.geoJson().addTo(this.map);
     this.viewShedLayer = L.geoJson().addTo(this.map);
     this.cityOutlineLayer = L.geoJson().addTo(this.map);
+    this.vanLayer = L.geoJson().addTo(this.map);
+    this.naarLayer = L.geoJson().addTo(this.map);
 
     this.drawCityOutline(this.city);
 
@@ -238,13 +242,55 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscribeToVan() {
     return this.routingService.getVan().subscribe(van => {
-      console.log('van', van);
+      this.vanLayer.clearLayers();
+      const geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#000",
+        color: "yellow",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      };
+      L.geoJson(
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": van
+          }
+        , {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+      }).addTo(this.vanLayer);
     });
   }
 
   private subscribeToNaar() {
     return this.routingService.getNaar().subscribe(naar => {
-      console.log('naar', naar);
+      this.naarLayer.clearLayers();
+      const geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#000",
+        color: "yellow",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      };
+      L.geoJson(
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": van
+          }
+        , {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+      }).addTo(this.naarLayer);
     });
   }
 
