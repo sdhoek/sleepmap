@@ -225,7 +225,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         dashArray: "5 5",
       }
     }).addTo(this.cameraRouteLayer);
-    this.map.fitBounds(this.cameraRouteLayer.getBounds());
+    if(routeGeometry.features.length > 0) {
+      this.map.fitBounds(this.cameraRouteLayer.getBounds());
+    }
   }
 
   private filterFaultyPolygons(polygon) {
@@ -281,9 +283,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.routeData = route;
       this.drawCameraRoute(route.route.geojson);
       // turf.combine(route.route.geojson);
-      const intersections = this.intersectRouteWithViewshed(fullLine, this.cameraService.getCameraViewsheds());
-      this.drawIntersection(intersections);
-      // console.log(intersections);
+      if(route.route.geojson.features.length > 0) {
+        const intersections = this.intersectRouteWithViewshed(fullLine, this.cameraService.getCameraViewsheds());
+        this.drawIntersection(intersections);
+        // console.log(intersections);
+      }
     });
   }
 
