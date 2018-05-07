@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CityLocations } from './city-locations.data';
 import { CameraService } from '../shared/camera.service';
 import { RoutingService } from '../shared/routing.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-map',
@@ -25,8 +26,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   private cityLocations = CityLocations;
   private cityOutlines: any;
 
-  public origin: string = 'Kromme Nieuwegracht 3, Utrecht';
-  public destination: string = 'Oudwijkerlaan 28, Utrecht';
+  public vanSubscription : Subscription;
+  public naarSubscription : Subscription;
 
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
@@ -79,6 +80,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     const viewsheds = this.cameraService.getCameraViewsheds();
     this.drawViewsheds(viewsheds);
+
+    this.naarSubscription = this.routingService.getNaar().subscribe(event=>{
+
+    })
+
+
   }
 
   private drawViewsheds(viewsheds) {
@@ -168,22 +175,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     }).addTo(this.cameraRouteLayer);
     this.map.fitBounds(this.cameraRouteLayer.getBounds());
-  }
-
-  public findRoute() {
-    this.routingService.getCameraRoute(null, null).then(response => {
-      this.drawCameraRoute(response.route.geojson);
-    });
-    this.routingService.getNonCameraRoute(null, null).then(response => {
-      console.log('no camera response', response);
-      this.drawNoCameraRouteLayer(response.route.geojson);
-    });
-
-    // this.routingService.getCyclingDirections(this.origin, this.destination).then(directions => {
-    //   this.drawRoute(directions.geometry);
-    //   const intersection = this.intersectRouteWithViewshed(this.routeLayer.toGeoJSON(), this.viewShedLayer.toGeoJSON());
-    //   this.drawIntersection(intersection);
-    // });
   }
 
   private intersectRouteWithViewshed(route, viewsheds) {

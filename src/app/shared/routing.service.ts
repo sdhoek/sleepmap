@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AppHttpService } from './app-http.service';
 import * as querystring from 'querystring';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class RoutingService {
   public routeApi = 'http://api.onbegluurd.nl/utrecht/api/route';
   private onbegluurd = false;
+  private vanSubject = new Subject();
+  private naarSubject = new Subject();
+  private routeSubject = new Subject();
 
   constructor(private http: AppHttpService) {
    
@@ -17,23 +21,40 @@ export class RoutingService {
     this.onbegluurd = bool;
   }
 
-  public getNonCameraRoute(origin, destination,city) {
-    const body = {"privacy": true, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+  public getCameraRoute(origin, destination,city, privacy) {
+    const body = {"privacy": privacy, "start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
     return this.http.post(this.getRouteApi(city), body);
   }
 
-  public getCameraRoute(origin, destination,city) {
-    const body = {"privacy": false,"start":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
-    return this.http.post(this.getRouteApi(city), body);
+  public findRoute(origin, destination,city) {
+    this.setRoute(this.getCameraRoute(origin,destination,city,this.onbegluurd))
   }
 
-  public getRoute(origin, destination,city) {
-    if (this.onbegluurd) {
-      return this.getNonCameraRoute(origin, destination,city);
-    } else {
-      return this.getCameraRoute(origin, destination,city);
-    }
+  public setVan(origin) {
+    this.vanSubject.next(origin);
   }
+
+  public getVan() {
+    return this.vanSubject.asObservable();
+  }
+
+  public setNaar(destination) {
+    this.naarSubject.next(destination);
+  }
+
+  public getNaar() {
+    return this.naarSubject.asObservable();
+  }
+
+  public getRoute() {
+    return this.routeSubject.asObservable();
+  }
+
+  public setRoute(route) {
+    this.routeSubject.next(route);
+  }
+
+
   // public createRouteLinestring(directions) {
   //   const geometry = {
   //     type: 'LineString',

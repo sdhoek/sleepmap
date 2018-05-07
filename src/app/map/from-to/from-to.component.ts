@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppHttpService } from '../../shared/app-http.service';
 import { Subject } from 'rxjs/Subject';
 import "rxjs/add/operator/map";
@@ -6,18 +6,22 @@ import "rxjs/add/operator/debounceTime";
 import { ActivatedRoute } from '@angular/router';
 
 import { RoutingService } from '../../shared/routing.service';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-from-to',
   templateUrl: './from-to.component.html',
   styleUrls: ['./from-to.component.css']
 })
-export class FromToComponent implements OnInit {
+export class FromToComponent implements OnInit, OnDestroy {
   //Observable.fromEvent(yourInput, 'keyup').debounceTime(1000).subscribe(value => /* */)
   private vanSubject = new Subject();
   public vanSuggests = [];
   private naarSubject = new Subject();
+  private arParams = new Subscription();
   public naarSuggests = [];
   public vanLoc = [];
+  public naar;
+  public van;
   public naarLoc = [];
   public city = 'amsterdam';
   public suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&q=';
@@ -35,10 +39,16 @@ export class FromToComponent implements OnInit {
       // Initialize search here.
      this.getNaarSuggest(event.target.value)
     });
-    this.ar.params.subscribe((event: any) => {
+    this.arParams = this.ar.params.subscribe((event: any) => {
       this.city = event.city;
       this.suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:'+event.city+'&q='
     })
+  }
+
+  ngOnDestroy() {
+    this.naarSubject.unsubscribe();
+    this.vanSubject.unsubscribe();
+    this.arParams.unsubscribe();
   }
 
   public vanUp(event: Event) {
@@ -71,6 +81,7 @@ export class FromToComponent implements OnInit {
       this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
       this.naarSuggests = [];
     })
+    this.routingService.setNaar(this.naarLoc)
   }
 
   public locateVan(item) {
@@ -80,10 +91,10 @@ export class FromToComponent implements OnInit {
       this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
       this.vanSuggests = [];
     })
-
+    this.routingService.setVan(this.vanLoc)
   }
-  public findRoute() {
 
-    this.routingService.getRoute(this.vanLoc,this.naarLoc,this.city)
+  public findRoute() {
+    this.routingService.findRoute(this.vanLoc,this.naarLoc,this.city)
   }
 }
