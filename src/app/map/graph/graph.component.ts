@@ -15,7 +15,6 @@ export class GraphComponent implements OnInit {
 	}
 
 	public DrawGraph(){
-		console.log("draw!!!!")
 		// FAKE DATA
 		var data = [
 			{ "distance": 1, "camera":0},
@@ -120,7 +119,11 @@ export class GraphComponent implements OnInit {
 		// CLEAR BEFORE REDRAW
 		d3.select("#graph").selectAll("svg").remove();
 		d3.select("#graph").selectAll("h1").remove();
-
+		d3.select("#graph").selectAll("div").remove();
+		// TOOLTIP DIV
+		var div = d3.select("#graph").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
 		// SET SVG DIMENSIONS
 		// var margin = { top: 3, right: 10, bottom: 3, left: 10 },
 		var width = element.getBoundingClientRect().width-40,
@@ -230,10 +233,7 @@ export class GraphComponent implements OnInit {
 		var animation_circle_delay = 200;
 
 		// Graph CIRCLES
-		// TOOLTIP DIV
-		var div = d3.select("#graph").append("div")
-			.attr("class", "tooltip")
-			.style("opacity", 0);
+		
 		//   Tooltip popup
 		var circle = svg.selectAll("g")
 			.data(new_data2)
