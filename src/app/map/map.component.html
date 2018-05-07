@@ -1,5 +1,5 @@
 
-<app-graph [data]="routeData">
+<app-graph *ngIf="routeData" [data]="routeData">
 </app-graph>
 
 <div class="map" id="map">
