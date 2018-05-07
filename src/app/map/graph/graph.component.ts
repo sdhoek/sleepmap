@@ -20,7 +20,7 @@ export class GraphComponent implements OnInit {
 		var data = this.data;
 		console.log(data)
 		//MAIN ROUTE STATS
-		var route_length = data.route.length;
+		var route_length = Math.round(data.route.length);
 
 		var features = data.route.geojson.features;
 	
