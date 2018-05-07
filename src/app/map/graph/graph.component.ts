@@ -13,12 +13,10 @@ export class GraphComponent implements OnInit {
 
 	ngOnInit() {
 		this.DrawGraph()
-		// console.log(this.data);
 	}
 
 	public DrawGraph(){
 		var data = this.data;
-		console.log(data);
 		var features = data.route.geojson.features;
 		
 		//MAIN ROUTE STATS
@@ -32,10 +30,7 @@ export class GraphComponent implements OnInit {
 		var sum_camera = sum_cam(data);
 		var route_length = Math.round(data.route.lengte);
 
-		console.log("lengte " + route_length);
-		console.log("sum: " + sum_camera);
 		if(route_length == 0){
-			console.log("NUL!!")
 			// CLEAR BEFORE REDRAW
 			d3.select("#graph").selectAll("svg").remove();
 			d3.select("#graph").selectAll("h2").remove();
@@ -63,9 +58,9 @@ export class GraphComponent implements OnInit {
 				if (i == 0) {
 					new_data.push({
 						"id": i,
-						"x": features[i].properties.lengte,
+						"x": Math.round(features[i].properties.lengte),
 						"y": 0,
-						"dist": features[i].properties.lengte,
+						"dist": Math.round(features[i].properties.lengte),
 						"camera": features[i].properties.cameras
 					})
 				}
@@ -73,9 +68,9 @@ export class GraphComponent implements OnInit {
 					var j = new_data.length;
 					new_data.push({
 						"id": i,
-						"x": new_data[j - 1].x + features[i].properties.lengte,
+						"x": new_data[j - 1].x + Math.round(features[i].properties.lengte),
 						"y": 0,
-						"dist": features[i].properties.lengte,
+						"dist": Math.round(features[i].properties.lengte),
 						"camera": features[i].properties.cameras
 					})
 				}
@@ -191,7 +186,7 @@ export class GraphComponent implements OnInit {
 				.duration(200)
 				.delay(animation_time)
 				.style("opacity", 1);
-			
+
 			//   Tooltip popup
 			var circle = svg.selectAll("g")
 				.data(new_data)
@@ -204,7 +199,7 @@ export class GraphComponent implements OnInit {
 					div.style("opacity", 0.9)
 						.style("left", (d3.event.pageX + "px"))
 						.style("top", (d3.event.pageY) - 100 + "px")
-						.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld bij deze camera(s):</b> <span>" + d.x + " meter </span>");
+						.html("<img src='../assets/camera-icon@2x.png' /><b>Aantal cameras op dit punt:</b> <span>" + d.camera + " </span> <img src='../assets/route-icon@2x.png' /> <b>Afstand in beeld bij deze camera(s):</b> <span>" + d.dist + " meter </span>");
 				})
 				.on("mouseout", function (d) {
 					d3.select(this).select(".circle-fill")
