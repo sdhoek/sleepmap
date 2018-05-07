@@ -11,7 +11,7 @@ export class RoutingService {
    
   }
   public getRouteApi(city) {
-    return 'http://api.onbegluurd.nl/'+city+'/api/route';
+    return 'http://api.onbegluurd.nl/'+city+'/api/route/';
   }
   public setBegluurdStatus(bool: boolean) {
     this.onbegluurd = bool;
