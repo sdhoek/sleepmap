@@ -132,6 +132,7 @@ app-graph h2{
     text-align: center;
     padding-top: 12px;
     color: #fff;
+    margin-bottom: 0;
 }
 
 app-graph .tooltip {
