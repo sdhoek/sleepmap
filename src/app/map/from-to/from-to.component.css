@@ -1,28 +1,38 @@
 .from-to-container {
     position: absolute;
-    height: 80px;
-    width: 380px;
+    height: auto;
+    width: 66%;
+    width: calc(100% - 144px);
     background: #f6be0e;
     z-index: 500;
     right: 20px;
-    top: 20px;
-    display:flex;
-    flex-direction: row;
-    padding: 7px 10px 13px;
+    left: 108px;
+    top: 15px;
+    padding: 7px 10px 16px;
+}
+
+@media(min-width: 550px){
+    .from-to-container {
+        top: 20px;
+        left: inherit;
+        width: auto;
+    }
 }
 
 label {
-    font-size: small;
+    font-size: 13px;
     position: relative;
-    top: -3px;
+    top: -2px;
+    display: block;
+    margin: 4px 0 3px;
 }
 
 #from-container input{
-    width: 141px;
+    width: 94%;
 }
 
 input {
-    width: 145px;
+    width: 94%;
     background: #f3ca44;
     border: solid 2px black;
     padding: 6px 5px;
@@ -32,7 +42,7 @@ button {
     background: #cfa109;
     border: solid 2px black;
     cursor: pointer;
-    margin-top: 21px;
+    margin: 10px 0;
     padding: 5px 9px 6px;
 }
 
@@ -98,12 +108,15 @@ button:active {
 
 .checkbox-container {
     z-index: 500;
-    position: absolute;
-    top: 75px;
-    left: 5px;
 }
 
 .checkbox {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+}
+
+.checkbox-container span{
+    padding-left: 27px;
+    font-size: 14px;
 }
