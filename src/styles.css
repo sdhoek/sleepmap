@@ -98,6 +98,12 @@ app-colofon{
     flex: 1;
 }
 
+/* sidebar */
+
+.sidebar{
+    display: inline-block;
+  }
+
 /* webcam */
 
 video{
@@ -109,8 +115,7 @@ video{
     position: absolute;
     right: 20px;
     top: 314px;
-    z-index: 600;
-
+    z-index: 401;
 }
 
 webcam{
@@ -137,6 +142,13 @@ webcam{
     z-index: 402;
     padding-top: 3px;
     cursor: pointer;
+    display: none;
+}
+
+@media(min-width: 550px){
+    .cameraSwitch{
+        display: block;
+    }
 }
 
 .cameraSwitch img{
