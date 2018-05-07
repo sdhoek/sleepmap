@@ -60,6 +60,10 @@ h1:after {
     margin-bottom: 0;
 }
 
+.selection-row{
+  flex: 1;
+}
+
 .colofon p {
   padding-bottom: 20px;
 }
@@ -75,13 +79,15 @@ h2 {
 }
 
 .stad{
-    width: 250px;
-    padding: 36px 0 16px;
+    width: 200px;
+    height: 200px;
+    padding: 2%;
     display: inline-block;
     cursor: pointer;
-    border-radius: 125px;
-    margin: 17px;
+    border-radius: 200px;
+    margin: 2%;
     background: #1b1b1b;
+    box-sizing: content-box;
     border: 2px solid #f6be0e;
 }
 
@@ -90,9 +96,9 @@ h2 {
 }
 
 .stad img{
-    max-width: 150px;
+    max-width: 60%;
     display: block;
-    margin: 0 auto 15px;
+    margin: 15px auto 15px;
 }
 
 .colofon{
