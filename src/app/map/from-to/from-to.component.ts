@@ -3,6 +3,7 @@ import { AppHttpService } from '../../shared/app-http.service';
 import { Subject } from 'rxjs/Subject';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
+import { RoutingService } from '../../shared/routing.service';
 @Component({
   selector: 'app-from-to',
   templateUrl: './from-to.component.html',
@@ -16,7 +17,8 @@ export class FromToComponent implements OnInit {
   public naarSuggests = [];
   public vanLoc = [];
   public naarLoc = [];
-  constructor(private http: AppHttpService) {
+  public onbegluurd = false;
+  constructor(private http: AppHttpService, private routingService: RoutingService) {
   
   }
   ngOnInit() {
@@ -35,6 +37,10 @@ export class FromToComponent implements OnInit {
   }
   public naarUp(event: Event) {
     this.naarSubject.next(event);
+  }
+
+  public setOnbegluurd(event: Event) {
+    this.routingService.setBegluurdStatus(this.onbegluurd);
   }
 
   public getVanSuggest(van) {
