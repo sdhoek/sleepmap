@@ -45,7 +45,6 @@ export class GraphComponent implements OnInit, OnChanges {
 				.html("Route lengte is 0, probeer opnieuw")
 				.style("font-size", "17px")
 				.attr("transform", "translate(0 , 0)");
-
 		}
 		else {
 			// SIMPLE ROUTE DATA OVERVIEW
@@ -100,7 +99,7 @@ export class GraphComponent implements OnInit, OnChanges {
 			var title = d3.select("#graph")
 				.append("h2")
 				.attr("id", "camera-titel")
-				.html("Totaal aantal cameras op je route: <span id=\"camera_getal\"> " + sum_camera + "</span>")
+				.html("Totaal aantal cameras op je route: <span id=\"camera_getal\">" + sum_camera + "</span>")
 				.style("font-size", "17px")
 				.attr("transform", "translate(0 , 0)");
 
@@ -124,6 +123,9 @@ export class GraphComponent implements OnInit, OnChanges {
 				.y(function (d) { return y(d.y); });
 
 			// GRAPH GROUP
+			var circle_size = d3.scaleLinear()
+				.range([20,100])
+				.domain([1,15]);
 
 			// DASH ARRAY
 			var dashing = "5,5";
@@ -213,6 +215,7 @@ export class GraphComponent implements OnInit, OnChanges {
 
 			// Red fill Background
 			circle.append("circle")
+				.filter(function (d) { return d.camera > 0 })
 				.attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
 				.attr("cy", 0)
 				.attr("transform", "translate(0," + height / 2 + ")")
@@ -225,11 +228,13 @@ export class GraphComponent implements OnInit, OnChanges {
 					return animation_circle_delay * (i+1)
 				})
 				.attr("r", function (d) {
-					return d.camera * 15
+					console.log(d.camera)
+					return circle_size(d.camera)
 				});
 			
 			//   Black line stroke
 			circle.append("circle")
+				.filter(function (d) { return d.camera > 0 })
 				.attr("cx", function (d) { return x(d.x - (d.dist / 2)) })
 				.attr("cy", 0)
 				.attr("transform", "translate(0," + height / 2 + ")")
@@ -243,31 +248,30 @@ export class GraphComponent implements OnInit, OnChanges {
 					return animation_circle_delay * (i + 1)
 				})
 				.attr("r", function (d) {
-					return (d.camera * 15) - 3
+					return circle_size(d.camera) - 3
 				});
 				
 			// Image in circle
 			circle
 				.append("svg:image")
 				.filter(function (d) { return d.camera > 0 })
-				.attr("x", function (d) { return x(d.x - (d.dist / 2)) - ((d.camera*15)/2) })
-				.attr("y", function (d) { return -((d.camera * 15) / 2) })       // set offset y position
+				.attr("x", function (d) { return x(d.x - (d.dist / 2)) - ((circle_size(d.camera)/2)) })
+				.attr("y", function (d) { return -(circle_size(d.camera) / 2) })       // set offset y position
 				.attr("transform", "translate(0," + (height / 2)  + ")")
-				// .attr("text-anchor", "middle") // set anchor y justification
-				// .text(function (d) { return d.camera })
-				// .style("font-size", size)
 				.attr("xlink:href", "../assets/camera-icon@2x.png")
 				.attr("z-index", 500)
+				.attr("width",0)
+				.attr("height",0)
 				.transition()
 				.duration(animation_circle_time)
 				.delay(function (d, i) {
 					return animation_circle_delay * (i + 1)
 				})
 				.attr("width", function (d) {
-					return (d.camera * 15) 
+					return circle_size(d.camera)
 				})
 				.attr("height",  function(d) {
-					return (d.camera * 15) 
+					return circle_size(d.camera)
 				});
 		}//else
 	}; //END DRAW GRAPH FUNCTION	
