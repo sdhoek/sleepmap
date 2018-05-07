@@ -201,7 +201,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cameraRouteLayer.clearLayers();
     L.geoJson(routeGeometry, {
       style: {
-        color: '#fb0000'
+        color: '#f6be0e',
+        dashArray: "5 5",
       }
     }).addTo(this.cameraRouteLayer);
     this.map.fitBounds(this.cameraRouteLayer.getBounds());
