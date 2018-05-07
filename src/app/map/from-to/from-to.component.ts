@@ -24,7 +24,7 @@ export class FromToComponent implements OnInit, OnDestroy {
   public van;
   public naarLoc = [];
   public city = 'amsterdam';
-  public suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&q=';
+  public suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&fq=type:adres&q=';
   public locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id=';
   public onbegluurd = false;
   constructor(private http: AppHttpService, private routingService: RoutingService, private ar: ActivatedRoute) {
@@ -41,7 +41,7 @@ export class FromToComponent implements OnInit, OnDestroy {
     });
     this.arParams = this.ar.params.subscribe((event: any) => {
       this.city = event.city;
-      this.suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:'+event.city+'&q='
+      this.suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:'+event.city+'&fq=type:adres&q='
     })
   }
 
@@ -95,6 +95,6 @@ export class FromToComponent implements OnInit, OnDestroy {
   }
 
   public findRoute() {
-    this.routingService.findRoute(this.vanLoc,this.naarLoc,this.city)
+    this.routingService.findRoute(this.city)
   }
 }

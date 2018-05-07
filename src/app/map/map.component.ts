@@ -29,6 +29,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   public naarSubscription : Subscription;
   public routeSubscription: Subscription;
 
+  private vannaar = true;
+
   constructor(private route: ActivatedRoute, private cameraService: CameraService, private routingService: RoutingService) {
     this.city = this.route.snapshot.params.city;
     this.cityOutlines = this.cameraService.getCityOutlines();
@@ -50,6 +52,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       zoomControl: false,
       maxBoundsViscosity: 0.5
     });
+
+    this.map.on('click',this.getPoint,this)
 
     this.map.setMaxBounds(maxBounds);
 
@@ -93,6 +97,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.naarSubscription.unsubscribe();
   }
  
+  private getPoint(e) {
+    if(this.vannaar) {
+      this.routingService.setVan([e.latlng.lng,e.latlng.lat])
+    }
+    else {
+      this.routingService.setNaar([e.latlng.lng,e.latlng.lat]);
+      this.routingService.findRoute(this.city);
+    }
+    this.vannaar = !this.vannaar;
+
+
+  }
   private drawViewsheds(viewsheds) {
     const geojsonMarkerOptions = {
       radius: 8,

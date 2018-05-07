@@ -21,13 +21,13 @@ export class RoutingService {
     this.onbegluurd = bool;
   }
 
-  public getCameraRoute(origin, destination, city, privacy) {
-    const body = {"privacy": privacy, "start": {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":origin}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":destination}}};
+  public getCameraRoute(city, privacy) {
+    const body = {"privacy": privacy, "start": {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":this.getVan()}},"end":{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":this.getNaar()}}};
     return this.http.post(this.getRouteApi(city), body);
   }
 
-  public findRoute(origin, destination, city) {
-    this.setRoute(this.getCameraRoute(origin, destination, city, this.onbegluurd));
+  public findRoute(city) {
+    this.setRoute(this.getCameraRoute(city, this.onbegluurd));
   }
 
   public setVan(origin) {
