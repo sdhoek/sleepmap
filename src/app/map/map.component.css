@@ -56,11 +56,12 @@ app-graph{
   bottom: 0px;
   left: 0px;
   margin:10px;
-  height:100px;
+  height:150px;
   width:95%;
   width: calc(100% - 20px);
   transition: left 0.5s;
   color: #fff;
+  background: rgba(61, 61, 61, 0.84);
 }
 
 app-graph #camera-titel{

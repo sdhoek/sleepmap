@@ -127,6 +127,14 @@ webcam{
 
 /* GRAPH */
 
+app-graph h2{
+    font-size: 17px;
+    text-align: center;
+    padding-top: 12px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
 app-graph .tooltip {
     position: fixed;
     text-align: left;

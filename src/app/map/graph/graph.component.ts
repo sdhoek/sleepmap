@@ -113,18 +113,17 @@ export class GraphComponent implements OnInit {
 			{ "x": route_length, "y": 0, "text": "end" }
 		];
 		
-		// GET GRAPH ELEMENT FROM DOM
-		var element = d3.select('app-graph').node();
-
 		// CLEAR BEFORE REDRAW
 		d3.select("#graph").selectAll("svg").remove();
-		d3.select("#graph").selectAll("h1").remove();
+		d3.select("#graph").selectAll("h2").remove();
 		d3.select("#graph").selectAll("div").remove();
 		// TOOLTIP DIV
 		var div = d3.select("#graph").append("div")
 			.attr("class", "tooltip")
 			.style("opacity", 0);
 		// SET SVG DIMENSIONS
+		// GET GRAPH ELEMENT FROM DOM
+		var element = d3.select('app-graph').node();
 		// var margin = { top: 3, right: 10, bottom: 3, left: 10 },
 		var width = element.getBoundingClientRect().width-40,
 		height = element.getBoundingClientRect().height - 10;
@@ -132,10 +131,10 @@ export class GraphComponent implements OnInit {
 		
 		// TITLE
 		var title = d3.select("#graph")
-			.append("h1")
+			.append("h2")
 			.attr("id", "camera-titel")
 			.html("Totaal aantal cameras op je route: " + sum_camera)
-			.style("font-size", "10pt")
+			.style("font-size", "17px")
 			.attr("transform", "translate(0 , 0)");
 
 		// DRAW SVG
@@ -158,12 +157,19 @@ export class GraphComponent implements OnInit {
 			.y(function (d) { return y(d.y); });
 
 		// GRAPH GROUP
+
 		// DASH ARRAY
 		var dashing = "5,5";
 		var dashCount = Math.ceil((Math.abs(x(route_line[1].x)) / 5) / 2);
 		var newDashes = new Array(dashCount).join(dashing + ",");
 		var dashArray = "0," + newDashes  + x(route_line[1].x);
-
+		
+		// TRANSITION SETTINGS
+		var animation_time = 3000;
+		var animation_circle_time = 1500;
+		var amount_of_circles = new_data2.length;
+		var animation_circle_delay = animation_time/amount_of_circles;
+		
 		// ROUTE
 		var route = svg.selectAll("route")
 			.data([route_line])
@@ -177,7 +183,8 @@ export class GraphComponent implements OnInit {
 			.attr("transform", "translate(0,-" + height / 2 + ")")
 			.attr("stroke-dashoffset", x(route_line[1].x))
 			.transition()
-			.duration(3000)
+			.duration(animation_time)
+			.ease(d3.easeLinear)
 			.attr("stroke-dashoffset",0);
 
 		var start_end = svg.selectAll(".circle_start")
@@ -199,7 +206,7 @@ export class GraphComponent implements OnInit {
 			.data([route_line[1]])
 			.enter()
 			.append("text")
-			.attr("class", "p")
+			.attr("class", "end-text")
 			.attr("x", function(d){
 				return x(d.x)-(size/2)
 			})
@@ -210,34 +217,17 @@ export class GraphComponent implements OnInit {
 				return d.x + "m"
 			})
 			.style("fill", "#f6be0e")
-			.style("font-size", "12px");
-
-		var lengte_route = svg.selectAll("text")
-			.data([route_line])
-			.enter()
-			.append("text")
-			.attr("class", "p")
-			.attr("x", function (d) {
-				return x(d.x) - (size / 2)
-			})
-			.attr("y", -10)           // set offset y position
-			.attr("transform", "translate(0," + height / 2 + ")")
-			.attr("text-anchor", "end") // set 
-			.text(function (d) {
-				return d.text 
-			})
-			.style("fill", "#f6be0e")
-			.style("font-size", "12px");
-
-		var animation_circle_time = 1500;
-		var animation_circle_delay = 200;
-
-		// Graph CIRCLES
+			.style("font-size", "12px")
+			.style("opacity", 0)
+			.transition()
+			.duration(200)
+			.delay(animation_time)
+			.style("opacity", 1);
 		
 		//   Tooltip popup
 		var circle = svg.selectAll("g")
 			.data(new_data2)
-		.enter()
+			.enter()
 			.append("g")
 			.filter(function (d) { return d.camera > 0 })
 			.on("mouseover", function (d) {
@@ -265,7 +255,7 @@ export class GraphComponent implements OnInit {
 			.transition()
 			.duration(animation_circle_time)
 			.delay(function(d,i){
-			return animation_circle_delay * i
+			return animation_circle_delay * (i+1)
 			})
 			.attr("r", function (d) {
 			return d.camera * 15
@@ -283,7 +273,7 @@ export class GraphComponent implements OnInit {
 			.transition()
 			.duration(animation_circle_time)
 			.delay(function (d, i) {
-				return animation_circle_delay * i
+				return animation_circle_delay * (i + 1)
 			})
 			.attr("r", function (d) {
 			return (d.camera * 15) - 3
@@ -304,7 +294,7 @@ export class GraphComponent implements OnInit {
 			.transition()
 			.duration(animation_circle_time)
 			.delay(function (d, i) {
-				return animation_circle_delay * i
+				return animation_circle_delay * (i + 1)
 			})
 			.attr("width", function (d) {
 			return (d.camera * 15) 

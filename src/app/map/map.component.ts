@@ -19,6 +19,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private noCameraRouteLayer: L.GeoJSON;
   private cameraRouteLayer: L.GeoJSON;
   private viewShedLayer: L.GeoJSON;
+  private intersectionLayer: L.GeoJSON;
   private cityOutlineLayer: L.GeoJSON;
   private vanLayer: L.GeoJSON;
   private naarLayer: L.GeoJSON;
@@ -74,6 +75,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cityOutlineLayer = L.geoJson().addTo(this.map);
     this.vanLayer = L.geoJson().addTo(this.map);
     this.naarLayer = L.geoJson().addTo(this.map);
+    this.intersectionLayer = L.geoJson().addTo(this.map);
 
     this.drawCityOutline(this.city);
 
@@ -202,21 +204,35 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map.fitBounds(this.cameraRouteLayer.getBounds());
   }
 
+  private filterFaultyPolygons(polygon) {
+    let faulty = false;
+    if (polygon.coordinates[0].length < 3) {
+      faulty = true;
+    }
+    return faulty;
+  }
+
   private intersectRouteWithViewshed(route, viewsheds) {
-    console.log(route, viewsheds);
+    const routebuffer = turf.buffer(route, 0.5, {units: 'meters'});
 
     let intersections = viewsheds.features.map(viewshed => {
-      return turf.intersect(viewshed.geometry, route);
+      if (!this.filterFaultyPolygons(viewshed.geometry)) {
+        const crosses = turf.booleanCrosses(viewshed, route);
+
+        if (crosses) {
+          return turf.intersect(routebuffer.geometry, viewshed.geometry);
+        }
+      }
+
     });
-    intersections = intersections.filter(inter => inter != null);
-    console.log(intersections);
-    
-    return intersections;
+    intersections = intersections.filter(inter => inter != null && inter != undefined);
+    return {type: 'FeatureCollection', features: intersections};
     // return intersections;
   }
 
   private drawIntersection(intersectingLines) {
-    L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.map);
+    this.intersectionLayer.clearLayers();
+    L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.intersectionLayer);
   }
 
   private buildIntersectGeometry(intersectingPoints) {
@@ -236,7 +252,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.routingService.getRoute().subscribe(route => {
       this.drawCameraRoute(route.route.geojson);
       const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
-      
+      this.drawIntersection(intersections);
+      console.log(intersections);
     });
   }
 
@@ -284,7 +301,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           "properties": {},
           "geometry": {
             "type": "Point",
-            "coordinates": van
+            "coordinates": naar
           }
         , {
         pointToLayer: function (feature, latlng) {
