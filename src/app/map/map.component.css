@@ -49,6 +49,7 @@ img.camera{
   color: #ddd;
 }
 
+
 app-graph{
   position: absolute;
   z-index: 401;
@@ -62,5 +63,9 @@ app-graph{
   color: #fff;
 }
 
-
-
+app-graph #camera-titel{
+    display: inline;
+    font-size: 14pt;
+    margin:0;
+    padding:0;
+}

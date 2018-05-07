@@ -132,7 +132,7 @@ app-graph .tooltip {
     text-align: left;
     font-size: 14px;
     border: 0px;
-    border-radius: 8px;
+    border-radius: 3px;
     pointer-events: none;
     z-index: 500;
     background: #f6be0e;
