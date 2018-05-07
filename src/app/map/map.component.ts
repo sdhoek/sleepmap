@@ -118,8 +118,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private drawViewsheds(viewsheds) {
     const geojsonMarkerOptions = {
       radius: 8,
-      fillColor: "red",
-      color: "red",
+      fillColor: "#fb0000",
+      color: "#fb0000",
       weight: 1,
       opacity: 1,
       fillOpacity: 0.4
@@ -171,7 +171,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private drawCameras(cameras) {
     const geojsonMarkerOptions = {
       radius: 8,
-      fillColor: "red",
+      fillColor: "#fb0000",
       color: "#000",
       weight: 1,
       opacity: 1,
@@ -198,7 +198,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cameraRouteLayer.clearLayers();
     L.geoJson(routeGeometry, {
       style: {
-        color: 'red'
+        color: '#fb0000'
       }
     }).addTo(this.cameraRouteLayer);
     this.map.fitBounds(this.cameraRouteLayer.getBounds());
@@ -232,7 +232,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private drawIntersection(intersectingLines) {
     this.intersectionLayer.clearLayers();
-    L.geoJson(intersectingLines, {color: 'yellow', width: 10}).addTo(this.intersectionLayer);
+    L.geoJson(intersectingLines, { color: '#f6be0e', width: 10}).addTo(this.intersectionLayer);
   }
 
   private buildIntersectGeometry(intersectingPoints) {
@@ -261,9 +261,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.routingService.getVan().subscribe(van => {
       this.vanLayer.clearLayers();
       const geojsonMarkerOptions = {
-        radius: 8,
+        radius: 5,
         fillColor: "#000",
-        color: "yellow",
+        color: "#f6be0e",
         weight: 2,
         opacity: 1,
         fillOpacity: 0.8
@@ -288,9 +288,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.routingService.getNaar().subscribe(naar => {
       this.naarLayer.clearLayers();
       const geojsonMarkerOptions = {
-        radius: 8,
+        radius: 5,
         fillColor: "#000",
-        color: "yellow",
+        color: "#f6be0e",
         weight: 2,
         opacity: 1,
         fillOpacity: 0.8
