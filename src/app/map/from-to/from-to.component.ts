@@ -80,8 +80,8 @@ export class FromToComponent implements OnInit, OnDestroy {
       let pt = r.response.docs[0].centroide_ll;
       this.naarLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
       this.naarSuggests = [];
+      this.routingService.setNaar(this.naarLoc)
     })
-    this.routingService.setNaar(this.naarLoc)
   }
 
   public locateVan(item) {
@@ -90,8 +90,8 @@ export class FromToComponent implements OnInit, OnDestroy {
       let pt = r.response.docs[0].centroide_ll;
       this.vanLoc = [parseFloat(pt.split('(')[1].split(' ')[0]),parseFloat(pt.split('(')[1].split(' ')[1].split(')')[0])]
       this.vanSuggests = [];
+      this.routingService.setVan(this.vanLoc)
     })
-    this.routingService.setVan(this.vanLoc)
   }
 
   public findRoute() {
