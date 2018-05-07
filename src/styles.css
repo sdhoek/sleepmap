@@ -141,8 +141,23 @@ app-graph .tooltip {
     color: #333;
 }
 
-app-graph .tooltip b{
-    /* background: #f6be0e; */
+app-graph .tooltip img{
+    width: 22px;
+    position: absolute;
+}
+
+app-graph .tooltip b, app-graph .tooltip span{
+    padding-left: 30px;
+    display: block;
+}
+
+app-graph .tooltip span{
+    display: block;
+    margin-bottom: 8px;
+}
+
+app-graph .tooltip span:last-of-type{
+    margin-bottom: 0px;
 }
 
 /* leaflet */
