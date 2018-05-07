@@ -265,6 +265,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscribeToVan() {
     return this.routingService.getVan().subscribe(van => {
       this.vanLayer.clearLayers();
+
       const geojsonMarkerOptions = {
         radius: 5,
         fillColor: "#000",
@@ -273,6 +274,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         opacity: 1,
         fillOpacity: 0.8
       };
+
       L.geoJson(
         {
           "type": "Feature",
@@ -281,11 +283,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             "type": "Point",
             "coordinates": van
           }
-        ,
-        pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng, geojsonMarkerOptions);
         }
-      }).addTo(this.vanLayer);
+        , {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+          }
+        }
+      ).addTo(this.vanLayer);
     });
   }
 
@@ -308,7 +312,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             "type": "Point",
             "coordinates": naar
           }
-        ,
+        }
+        , {
         pointToLayer: function (feature, latlng) {
           return L.circleMarker(latlng, geojsonMarkerOptions);
         }
