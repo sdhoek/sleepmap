@@ -130,9 +130,12 @@ webcam{
 app-graph h2{
     font-size: 17px;
     text-align: center;
-    padding-top: 12px;
-    color: #fff;
+    color: #bebebe;
     margin-bottom: 0;
+    background: #262626;
+    margin-top: 0;
+    padding: 10px 0;
+    font-weight: 900;
 }
 
 app-graph .tooltip {
