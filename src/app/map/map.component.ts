@@ -55,6 +55,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === this.city).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === this.city).mapBounds;
+    const example = this.cityLocations.find(cityLoc => cityLoc.name === this.city).example;
 
     this.map = new L.Map('map', {
       center: [mapCenter.lat, mapCenter.lon],
@@ -107,6 +108,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.arParams = this.ar.params.subscribe((event: any) => {
       this.city = event.city;
     });
+
+    console.log(example);
+    console.log(this.city);
+    this.routingService.setVan(example.from);
+    this.routingService.setNaar(example.to);
+    this.routingService.findRoute(this.city);
+
   }
 
   ngOnDestroy() {
@@ -120,7 +128,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getPoint(e) {
-    if(this.vannaar) {
+    if (this.vannaar) {
       this.routingService.setVan([e.latlng.lng,e.latlng.lat])
     }
     else {
@@ -214,7 +222,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         color: 'green'
       }
     }).addTo(this.noCameraRouteLayer);
-    this.map.fitBounds(this.noCameraRouteLayer.getBounds());
+    this.map.fitBounds(this.noCameraRouteLayer.getBounds(), {padding: [100, 100]});
   }
 
   private drawCameraRoute(routeGeometry) {
@@ -226,7 +234,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }).addTo(this.cameraRouteLayer);
     if(routeGeometry.features.length > 0) {
-      this.map.fitBounds(this.cameraRouteLayer.getBounds());
+      this.map.fitBounds(this.cameraRouteLayer.getBounds(), {padding: [100, 100]});
     }
   }
 
