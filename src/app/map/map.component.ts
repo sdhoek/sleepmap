@@ -183,13 +183,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private intersectRouteWithViewshed(route, viewsheds) {
-    let intersections = viewsheds.features.map(viewShed => {
-      let inter = turf.intersect(turf.buffer(route.features[0].geometry, 0.5, {units: 'meters'}), viewShed.geometry);
-      return inter
-    });
+    console.log(route, viewsheds);
 
-    intersections = intersections.filter(intersection => intersection != null)
+    let intersections = viewsheds.features.map(viewshed => {
+      return turf.intersect(viewshed.geometry, route);
+    });
+    intersections = intersections.filter(inter => inter != null);
+    console.log(intersections);
+    
     return intersections;
+    // return intersections;
   }
 
   private drawIntersection(intersectingLines) {
@@ -211,19 +214,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscribeToRoute() {
     return this.routingService.getRoute().subscribe(route => {
-      console.log('route', route);
+      this.drawCameraRoute(route.route.geojson);
+      const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
+      
     });
   }
 
   private subscribeToVan() {
     return this.routingService.getVan().subscribe(van => {
-      console.log('van', van)
+      console.log('van', van);
     });
   }
 
   private subscribeToNaar() {
     return this.routingService.getNaar().subscribe(naar => {
-      console.log('naar', naar)
+      console.log('naar', naar);
     });
   }
 
