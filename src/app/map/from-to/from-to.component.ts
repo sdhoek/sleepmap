@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
 import { ActivatedRoute } from '@angular/router';
 
+import { RoutingService } from '../../shared/routing.service';
 @Component({
   selector: 'app-from-to',
   templateUrl: './from-to.component.html',
@@ -21,7 +22,8 @@ export class FromToComponent implements OnInit {
   public city = 'amsterdam';
   public suggestUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?fq=gemeentenaam:amsterdam&q=';
   public locateUrl = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id=';
-  constructor(private http: AppHttpService, private ar: ActivatedRoute) {
+  public onbegluurd = false;
+  constructor(private http: AppHttpService, private routingService: RoutingService, private ar: ActivatedRoute) {
   
   }
   ngOnInit() {
@@ -44,6 +46,10 @@ export class FromToComponent implements OnInit {
   }
   public naarUp(event: Event) {
     this.naarSubject.next(event);
+  }
+
+  public setOnbegluurd(event: Event) {
+    this.routingService.setBegluurdStatus(this.onbegluurd);
   }
 
   public getVanSuggest(van) {

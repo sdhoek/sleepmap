@@ -1,6 +1,6 @@
 .from-to-container {
     position: absolute;
-    height: 52px;
+    height: 80px;
     width: 380px;
     background: #f6be0e;
     z-index: 500;
@@ -96,3 +96,14 @@ button:active {
     background: #fff;
 }
 
+.checkbox-container {
+    z-index: 500;
+    position: absolute;
+    top: 75px;
+    left: 5px;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+}
