@@ -1,4 +1,7 @@
-<webcam *ngIf="showWebcam"></webcam>
-<button class="cameraSwitch" (click)="toggleWebcam();"> x </button>
+<div class="webcam-display">
+    <webcam *ngIf="showWebcam"></webcam>
+    <button *ngIf="showWebcam" class="cameraSwitch" (click)="toggleWebcam();"> <img src="../assets/camera-icon@2x.png"> </button>
+    <button *ngIf="!showWebcam" class="cameraSwitch" (click)="toggleWebcam();"> <img src="../assets/camera-icon@2x.png"> </button>
+</div>
 <router-outlet>
 </router-outlet>

@@ -256,12 +256,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       route.route.geojson.features.forEach(route => {
         route.properties.length = turf.length(route.geometry, {units: 'meters'});
       });
+      const fullLine = this.combineLineResponse(route.route.geojson.features);
       this.routeData = route;
       this.drawCameraRoute(route.route.geojson);
-      // const intersections = this.intersectRouteWithViewshed(route.route.geojson, this.cameraService.getCameraViewsheds());
-      // this.drawIntersection(intersections);
+      // turf.combine(route.route.geojson);
+      const intersections = this.intersectRouteWithViewshed(fullLine, this.cameraService.getCameraViewsheds());
+      this.drawIntersection(intersections);
       // console.log(intersections);
     });
+  }
+
+  private combineLineResponse (lineResponseFeatureCollection) {
+    const line = {
+      type: 'LineString',
+      coordinates: []
+    };
+    lineResponseFeatureCollection.forEach(responseLine => {
+      line.coordinates.push(...responseLine.geometry.coordinates);
+      console.log(responseLine);
+
+    })
+    // fullLine()
+    // lineResponseFeatureCollection
+    console.log(line);
+
+    return line;
   }
 
   private subscribeToVan() {
