@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class RoutingService {
-  public routeApi = 'http://api.onbegluurd.nl/utrecht/api/route';
+  public routeApi = '//api.onbegluurd.nl/utrecht/api/route';
   private onbegluurd = false;
   private vanSubject = new Subject();
   private naarSubject = new Subject();
@@ -17,7 +17,7 @@ export class RoutingService {
    
   }
   public getRouteApi(city) {
-    return 'http://api.onbegluurd.nl/'+city+'/api/route/';
+    return '//api.onbegluurd.nl/'+city+'/api/route/';
   }
   public setBegluurdStatus(bool: boolean) {
     this.onbegluurd = bool;
