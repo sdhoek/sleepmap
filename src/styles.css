@@ -114,7 +114,7 @@ video{
 .webcam-display{
     position: absolute;
     right: 20px;
-    top: 314px;
+    top: 120px;
     z-index: 401;
 }
 

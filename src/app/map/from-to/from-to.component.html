@@ -6,34 +6,3 @@
   </label>
 </div>
 
-<div class="from-to-container">
-  
-  <div id="from-container">
-    <label>van</label>
-    <input [(ngModel)]="van" (keyup)="vanUp($event)" placeholder="Kies een startpunt" >
-    <div *ngIf="vanSuggests.length > 0" id="vansuggests">
-      <ul>
-        <li *ngFor="let vanSuggest of vanSuggests" (click)="locateVan(vanSuggest)">
-          {{vanSuggest.weergavenaam}}
-        </li>
-      </ul>
-    </div>
-
-  </div>
-  <div id="to-container">
-<label>naar</label>
-
-<input [(ngModel)]="naar"  (keyup)="naarUp($event)" placeholder="Kies een bestemming">
-<div *ngIf="naarSuggests.length > 0" id="naarsuggests">
-  <ul>
-    <li *ngFor="let naarSuggest of naarSuggests" (click)="locateNaar(naarSuggest)">
-      {{naarSuggest.weergavenaam}}
-    </li>
-  </ul>
-</div>
-  </div>
-  <div id="from-to-search">
-    <button (click)="findRoute()" type="button" name="button">zoek</button>
-  </div>
-  
-</div>
