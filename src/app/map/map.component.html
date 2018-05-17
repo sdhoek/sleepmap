@@ -9,8 +9,8 @@
 
 <div class="map" id="map">
     <div class="selectionstate-container">
-        <span *ngIf="selectionState == 'from'">Selecteer een beginpunt</span>
-        <span *ngIf="selectionState == 'to'">Selecteer een eindpunt</span>
+        <span *ngIf="selectionState == 'from'">Klik op de kaart om een beginpunt te selecteren</span>
+        <span *ngIf="selectionState == 'to'">Klik op de kaart om eindpunt te selecteren</span>
     </div>
     <div class="sidebar" [ngClass]="{'active': sidebarActive === true}" (click)="openMenu($event)"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">

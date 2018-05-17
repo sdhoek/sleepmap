@@ -50,12 +50,13 @@ img.camera{
 }
 
 .selectionstate-container {
+  font-weight: bold;
+  font-size: 15px;
   z-index: 509;
   position: absolute;
-  right: 15px;
+  left: 100px;
   top: 20px;
-  width: 66%;
-  width: calc(100% - 144px);
+  width: 220px;
   padding: 10px 10px 7px;
   display: block;
   background: #f6be0e;
