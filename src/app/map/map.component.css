@@ -49,6 +49,20 @@ img.camera{
   color: #ddd;
 }
 
+.selectionstate-container {
+  z-index: 509;
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  width: 66%;
+  width: calc(100% - 144px);
+  padding: 10px 10px 7px;
+  display: block;
+  background: #f6be0e;
+  text-align: center;
+}
+
+
 
 app-graph{
   position: absolute;

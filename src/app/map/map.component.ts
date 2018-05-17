@@ -27,6 +27,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private naarLayer: L.GeoJSON;
   public routeData: any;
 
+  public selectionState = 'from';
+
   public sidebarActive = false;
 
   private city: string;
@@ -52,6 +54,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  private toggleFromToState(){
+    if (this.selectionState === 'from') {
+      this.selectionState = 'to';
+    } else {
+      this.selectionState = 'from';
+    }
+    console.log(this.selectionState);
+  }
   ngAfterViewInit() {
     const mapCenter = this.cityLocations.find(cityLoc => cityLoc.name === this.city).location;
     const maxBounds = this.cityLocations.find(cityLoc => cityLoc.name === this.city).mapBounds;
@@ -66,8 +76,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       maxBoundsViscosity: 0.5
     });
 
-    this.map.on('click', this.getPoint, this)
-
+    this.map.on('click', this.getPoint, this);
+    this.map.on('click', this.toggleFromToState, this);
     this.map.setMaxBounds(maxBounds);
 
     this.map.attributionControl.setPrefix('').setPosition('bottomleft');

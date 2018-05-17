@@ -8,6 +8,10 @@
 </app-graph>
 
 <div class="map" id="map">
+    <div class="selectionstate-container">
+        <span *ngIf="selectionState == 'from'">Selecteer een beginpunt</span>
+        <span *ngIf="selectionState == 'to'">Selecteer een eindpunt</span>
+    </div>
     <div class="sidebar" [ngClass]="{'active': sidebarActive === true}" (click)="openMenu($event)"> <img class="camera" src="../assets/camera-s@2x.png" title="Onbegluurd.nl" />
         <div class="side-menu">
             <h3 routerLink="../..">Home</h3>
@@ -19,5 +23,6 @@
         </div>
     </div>
 </div>
+
 <app-from-to>
 </app-from-to>
