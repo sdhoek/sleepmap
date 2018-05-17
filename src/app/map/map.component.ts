@@ -72,7 +72,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.map.attributionControl.setPrefix('').setPosition('bottomleft');
 
-    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png', {
+    this.kaart = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png', {
       attribution: 'Referentiekaart: <a href="https://www.openstreetmap.org">OpenStreetMap</a>.',
       maxZoom: 24,
       zIndeX: 0
