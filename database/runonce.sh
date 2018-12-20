@@ -21,11 +21,16 @@ export PGPORT=5432
 export PGUSER=postgres
 export PGPASSWORD=postgres
 
-
 PGCONF="-d ${PGDATABASE} -U ${PGUSER}"
 
 PGOPTIONS='--client-min-messages=warning' psql $PGCONF -q -f init-db.sql
 
-# Add specific functions:
+# Check whether schema exists in database:
+# \dn
+
+# Add specific functions.
 
 PGOPTIONS='--client-min-messages=warning' psql $PGCONF -q -f create_isovist_function.sql
+
+# Check whether function exists in database:
+# SELECT 'isovist'::regproc;
