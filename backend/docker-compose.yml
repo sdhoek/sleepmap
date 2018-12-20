@@ -1,0 +1,11 @@
+version: "3"
+services:
+  osrm:
+    image: osrm/osrm-backend
+    container_name: onbegluurd-osrm
+    ports:
+      - 8085:5000
+    volumes:
+      - ./data:/data
+    network_mode: bridge
+    restart: always
