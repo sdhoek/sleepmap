@@ -37,7 +37,9 @@ class Exporter {
                     coordinates: [
                         camera.longitude, camera.latitude
                     ]
-                }
+                },
+                type: 'Feature'
+                
             }
             return formattedCamera;
         });
