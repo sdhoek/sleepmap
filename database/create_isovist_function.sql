@@ -1,9 +1,18 @@
+CREATE OR REPLACE FUNCTION ISOVIST(
+    IN center geometry,
+    IN polygons geometry[],
+    IN radius numeric DEFAULT 150,
+    IN rays integer DEFAULT 36,
+    IN heading integer DEFAULT -999,
+    IN fov integer DEFAULT 360
+    )
+RETURNS geometry  AS $$
 DECLARE
     arc numeric;
     angle_0 numeric;
     geomout geometry;
 BEGIN
-    arc := fov::numeric / rays::numeric;
+    arc := fov::numerics / rays::numeric;
     IF fov = 360 THEN
         angle_0 := 0;
     ELSE
@@ -97,3 +106,4 @@ BEGIN
 
     RETURN geomout;
 END;
+$$ language plpgsql IMMUTABLE;
